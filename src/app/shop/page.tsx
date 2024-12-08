@@ -6,7 +6,13 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
+import { Metadata } from 'next';
 
+
+export const metadata: Metadata = {
+  title: "Hackathon Ui - Shop",
+ 
+};
 
 
 export default function page() {

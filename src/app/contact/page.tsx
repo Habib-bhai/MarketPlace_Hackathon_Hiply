@@ -1,4 +1,12 @@
 import Image from "next/image";
+import { Metadata } from 'next';
+
+
+export const metadata: Metadata = {
+  title: "Hackathon Ui - Contact",
+ 
+};
+
 
 export default function page() {
     return (

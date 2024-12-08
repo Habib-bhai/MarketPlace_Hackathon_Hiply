@@ -1,5 +1,13 @@
 import TeamMemberCards from "@/components/TeamMemberCards";
 import Image from "next/image";
+import { Metadata } from 'next';
+
+
+export const metadata: Metadata = {
+  title: "Hackathon Ui - Team",
+ 
+};
+
 
 export default function page() {
     return (
