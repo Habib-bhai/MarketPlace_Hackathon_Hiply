@@ -1,5 +1,5 @@
 ## This is the Ui/Ux Hackathon repo.
-
+# Here is the approach I've followed through out the Hackathon
 
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
