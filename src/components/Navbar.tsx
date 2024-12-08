@@ -69,7 +69,7 @@ export default function Navbar() {
                     <Accordion type="single" collapsible className='relative'>
                         <AccordionItem value="item-1" >
                             <AccordionTrigger className='font-montserrat font-bold text-base'>shop</AccordionTrigger>
-                            <AccordionContent className='absolute top-12 bottom-0'>
+                            <AccordionContent className='z-50 absolute top-12 bottom-0'>
                                 <ul className='font-montserrat font-bold flex flex-col justify-center items-start gap-1'>
                                     <li>Women's</li>
                                     <li>Kids'</li>

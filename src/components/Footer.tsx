@@ -74,6 +74,11 @@ export default function Footer() {
 
             </div>
 
+            {/* made by */}
+            <div className='bg-[#fafafa]  col-span-1 min-[580px]:col-span-2 md:col-span-3 lg:col-span-4 xl:col-span-5 row-span-2 flex justify-start px-[10%] items-center flex-wrap'>
+                <h1 className='font-montserrat text-sm text-[#737373]  font-bold'>Made With Love By Finland All Right Reserved </h1>
+
+            </div>    
         </div>
     )
 }
