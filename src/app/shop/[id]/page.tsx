@@ -2,9 +2,15 @@
 import Products2 from "@/components/products2"
 import Image from "next/image"
 import { useState } from "react"
+import Data from "@/app/Data"
+import Link from "next/link"
 
-export default function Page() {
-// { params }: { params: { id: string } }
+export default function Page({ params }: { params: { id: string } }) {
+
+    const DataToShow = Data.filter(item => item.slug === params.id)
+
+    console.log(DataToShow)
+
     const [image, setImage] = useState("/images/products/nested/product1.jpg")
 
     return (
@@ -45,7 +51,7 @@ export default function Page() {
 
                     <div className="mt-5 flex justify-start items-center gap-5">
                         <Image onClick={() => setImage("/images/products/nested/product1.jpg")} src={"/images/products/nested/product1.jpg"} alt="image" height={100} width={100} />
-                        <Image onClick={() => setImage("/images/products/nested/product2.jpg")} src={"/images/products/nested/product2.jpg"} alt="image" height={120} width={120} />
+                        <Image onClick={() => setImage(DataToShow[0].image)} src={DataToShow[0].image} alt="image" height={120} width={120} />
                     </div>
 
                 </div>
@@ -54,7 +60,7 @@ export default function Page() {
                 <div className="mt-12 lg:mt-0 lg:mb-16 w-[50%] text-black flex flex-col justify-center items-start">
 
                     {/* title */}
-                    <h1 className="font-montserrat text-xl font-medium text-black mb-3">Floating Phone</h1>
+                    <h1 className="font-montserrat text-xl font-medium text-black mb-3">{DataToShow[0].name}</h1>
 
                     {/* reviews */}
                     <div className="mb-4 w-[221px] flex justify-start items-center gap-2">
@@ -69,20 +75,20 @@ export default function Page() {
                     </div>
 
                     {/* price */}
-                    <h1 className="mb-2 font-montserrat font-bold text-2xl ">$1,139.33</h1>
+                    <h1 className="mb-2 font-montserrat font-bold text-2xl ">${DataToShow[0].price}</h1>
 
                     {/* availability */}
                     <div className="mb-10 w-[159px] flex justify-start gap-1 items-center">
                         <p className="font-bold font-montserrat text-sm text-[#737373]">Availability</p>
                         :
-                        <p className=" font-bold font-montserrat text-sm text-[#23A6F0]">In Stock</p>
+                        <p className=" font-bold font-montserrat text-sm text-[#23A6F0]">In Stock {DataToShow[0].stock} pieces</p>
                     </div>
 
 
                     {/* short description */}
-                    <p className="mb-5 font-montserrat text-sm text-[#858585]">Met minim Mollie non desert Alamo est sit cliquey dolor
-                        do met sent. RELIT official consequent door ENIM RELIT Mollie.
-                        Excitation venial consequent sent nostrum met.
+                    <p className="mb-5 font-montserrat text-sm text-[#858585]">{
+                        DataToShow[0].description ? DataToShow[0].description : "Met minim Mollie non desert Alamo est sit cliquey dolordo met sent. RELIT official consequent door ENIM RELIT Mollie.Excitation venial consequent sent nostrum met."
+                        }
                     </p>
 
                     {/* ruler line */}
@@ -219,19 +225,19 @@ export default function Page() {
                     <h1 className=" text-2xl font-montserrat font-bold">BESTSELLER PRODUCTS</h1>
                 </div>
 
-                    {/* horizontal line */}
+                {/* horizontal line */}
                 <p className="mt-5 w-[80%] h-[1px] bg-[#ececec]"></p>
 
                 {/* products */}
                 <div className="flex justify-center items-center gap-[24px] flex-wrap">
-                    <Products2 image="product-cover-54.png"/>
-                    <Products2 image="product-cover-51.png"/>
-                    <Products2 image="product-cover-52.png"/>
-                    <Products2 image="product-cover-53.png"/>
-                    <Products2 image="product-cover-54.png"/>
-                    <Products2 image="product1.png"/>
-                    <Products2 image="product-cover-5.png"/>
-                    <Products2 image="product-cover-52.png"/>
+                <Link href={"/shop/i"}>  <Products2 image="product-cover-54.png" /></Link> 
+                <Link href={"/shop/j"}> <Products2 image="product-cover-51.png" /></Link> 
+                <Link href={"/shop/j"}> <Products2 image="product-cover-52.png" /></Link> 
+                <Link href={"/shop/k"}> <Products2 image="product-cover-53.png" /></Link> 
+                <Link href={"/shop/l"}>  <Products2 image="product-cover-54.png" /></Link> 
+                <Link href={"/shop/m"}>   <Products2 image="product1.png" /></Link> 
+                <Link href={"/shop/n"}>  <Products2 image="product-cover-5.png" /></Link> 
+                <Link href={"/shop/o"}>  <Products2 image="product-cover-52.png" /></Link> 
                 </div>
 
                 {/* Brands */}
