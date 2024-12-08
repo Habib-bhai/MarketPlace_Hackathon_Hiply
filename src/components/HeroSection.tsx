@@ -12,7 +12,7 @@ export default function HeroSection() {
                 <p className=" text-base md:text-xl w-[350px] md:w-[376px] mb-7 text-[#fafafa]">We know how large objects will act, 
                 but things on a small scale.</p>
 
-                <button className="w-[221px] h-[62px] bg-[#2DC071]">SHOP NOW</button>
+                <button className="rounded-sm w-[221px] h-[62px] bg-[#2DC071]">SHOP NOW</button>
 
             </div>
         </div>

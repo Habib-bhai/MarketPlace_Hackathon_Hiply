@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function EditorsPick() {
     return (
-        <div className="w-screen">
+        <div className="w-screen mb-20">
 
             {/* headings */}
             <div className="w-full flex flex-col justify-center items-center">
@@ -17,13 +17,13 @@ export default function EditorsPick() {
                     {/* Men's */}
                     <div className="col-span-1 lg:col-span-2 row-span-2 md:row-span-6 h-[500px] lg:h-full relative">
                         <Image src={"/images/editors-pick/image.png"} alt="1" className="w-full h-full object-cover" width={100} height={100} />
-                        <button className="w-[170px] h-[48px] bg-white text-base font-montserrat font-bold absolute bottom-5 left-5">MEN</button>
+                        <button className="rounded-sm w-[170px] h-[48px] bg-white text-base font-montserrat font-bold absolute bottom-5 left-5">MEN</button>
                     </div>
 
                     {/* Women's  */}
                     <div className="col-span-1 row-span-2 md:row-span-6 h-[500px] lg:h-full relative">
                         <Image src={"/images/editors-pick/image1.png"} alt="1" className="w-full h-full object-cover" width={100} height={100} sizes={"100vw"} />
-                        <button className="w-[170px] h-[48px] bg-white text-base font-montserrat font-bold absolute bottom-5 left-5">WOMEN</button>
+                        <button className="rounded-sm w-[170px] h-[48px] bg-white text-base font-montserrat font-bold absolute bottom-5 left-5">WOMEN</button>
                     </div>
 
                     {/* Accessories and Kids */}
@@ -33,14 +33,14 @@ export default function EditorsPick() {
                         <div className="mb-3 col-span-1 row-span-1 md:row-span-3 h-[41%] relative">
                             
                             <Image src={"/images/editors-pick/image2.png"} alt="1" className="w-full h-full object-cover" width={100} height={100} sizes={"100vw"} />
-                            <button className="w-[170px] h-[48px] bg-white text-base font-montserrat font-bold absolute bottom-5 left-5">ACCESSORIES</button>
+                            <button className="rounded-sm w-[170px] h-[48px] bg-white text-base font-montserrat font-bold absolute bottom-5 left-5">ACCESSORIES</button>
                         </div>
 
                         {/* two */}
                         <div className="col-span-1 row-span-1 md:row-span-3 h-[41%] relative">
                             
                             <Image src={"/images/editors-pick/image3.png"} alt="1" className="w-full h-full object-cover" width={100} height={100} sizes={"100vw"} />
-                            <button className="w-[170px] h-[48px] bg-white text-base font-montserrat font-bold absolute bottom-5 left-5">ACCESSORIES</button>
+                            <button className="rounded-sm w-[170px] h-[48px] bg-white text-base font-montserrat font-bold absolute bottom-5 left-5">ACCESSORIES</button>
                         </div>
 
                     </div>
