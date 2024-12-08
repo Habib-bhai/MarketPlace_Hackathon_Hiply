@@ -6,6 +6,7 @@
 ### 4) Have used props to make my components customizeable.
 ### 5) Implemented Dynamic route and added Dummy data to add a bit of interactivity
 
+<hr/>
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
