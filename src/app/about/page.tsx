@@ -1,3 +1,4 @@
+import TeamMemberCards from '@/components/TeamMemberCards'
 import Image from 'next/image'
 import React from 'react'
 
@@ -9,9 +10,9 @@ export default function page() {
       <div className='w-full flex justify-center items-center flex-wrap relative '>
 
         {/*hero image  */}
-        <Image src={"/images/aboutpage/filter.png"} alt='image' height={100} width={100} className='w-[40%] object-cover h-[545px] ' />
+       
 
-        <Image src={"/images/aboutpage/image-part.png"} alt='bg-hero' height={100} width={100} className='w-[60%] h-[545px] object-cover' />
+        <Image src={"/images/aboutpage/image-part.png"} alt='bg-hero' height={600} width={800} className='w-full h-[545px] object-cover' />
 
         {/* headings and other text */}
         <div className='absolute w-[80%] flex flex-col justify-center items-start'>
@@ -102,48 +103,15 @@ export default function page() {
           {/* Team members card */}
           <div className='flex justify-center items-center gap-[30px] flex-wrap'>
             {/* first card */}
-            <div className='w-[316px] h-[383px] flex flex-col justify-center items-center'>
-              <Image src={"/images/aboutpage/team-1-user-1.jpg"} alt='team member' height={100} width={100} className='w-full h-[231px] object-cover' />
-
-              <h2 className='mt-8 text-base font-montserrat font-bold text-black'>Username</h2>
-              <p className='mt-2 mb-3 text-sm font-montserrat font-bold text-[#737373]'>Profession</p>
-              <div className='flex justify-center gap-5 items-center'>
-                <Image src={"/images/footer/facebook.svg"} alt='fb' height={30} width={30} />
-                <Image src={"/images/footer/instagram.svg"} alt='insta' height={30} width={30} />
-                <Image src={"/images/footer/twitter.svg"} alt='x' height={30} width={30} />
-              </div>
-
-            </div>
+            <TeamMemberCards image='/images/aboutpage/team-1-user-1.jpg'/>
 
             {/* second card */}
-            <div className='w-[316px] h-[383px] flex flex-col justify-center items-center'>
-              <Image src={"/images/aboutpage/team-1-user-2.jpg"} alt='team member' height={100} width={100} className='w-full h-[231px] object-cover' />
-
-              <h2 className='mt-8 text-base font-montserrat font-bold text-black'>Username</h2>
-              <p className='mt-2 mb-3 text-sm font-montserrat font-bold text-[#737373]'>Profession</p>
-              <div className='flex justify-center gap-5 items-center'>
-                <Image src={"/images/footer/facebook.svg"} alt='fb' height={30} width={30} />
-                <Image src={"/images/footer/instagram.svg"} alt='insta' height={30} width={30} />
-                <Image src={"/images/footer/twitter.svg"} alt='x' height={30} width={30} />
-              </div>
-
-            </div>
+            <TeamMemberCards image='/images/aboutpage/team-1-user-2.jpg'/>
 
 
 
             {/* third card */}
-            <div className='w-[316px] h-[383px] flex flex-col justify-center items-center'>
-              <Image src={"/images/aboutpage/team-1-user-3.jpg"} alt='team member' height={100} width={100} className='w-full h-[231px] object-cover' />
-
-              <h2 className='mt-8 text-base font-montserrat font-bold text-black'>Username</h2>
-              <p className='mt-2 mb-3 text-sm font-montserrat font-bold text-[#737373]'>Profession</p>
-              <div className='flex justify-center gap-5 items-center'>
-                <Image src={"/images/footer/facebook.svg"} alt='fb' height={30} width={30} />
-                <Image src={"/images/footer/instagram.svg"} alt='insta' height={30} width={30} />
-                <Image src={"/images/footer/twitter.svg"} alt='x' height={30} width={30} />
-              </div>
-
-            </div>
+            <TeamMemberCards image='/images/aboutpage/team-1-user-3.jpg'/>
 
 
           </div>

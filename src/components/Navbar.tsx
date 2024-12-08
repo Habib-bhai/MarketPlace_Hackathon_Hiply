@@ -21,6 +21,11 @@ import {
 export default function Navbar() {
 
     const pathname = usePathname()
+    let conditional = true
+    if(pathname =="/about" ||  pathname =="/pricing" || pathname =="/team" || pathname == "/contact"){
+        conditional = false
+        
+    }
 
     return (
         <div className='text-white flex justify-center items-center flex-col w-screen overflow-x-hidden'>
@@ -28,7 +33,7 @@ export default function Navbar() {
            
             {
 
-                pathname !== "/about" ?
+                conditional ?
                     <>
                         <div className=' w-full hidden lg:flex lg:px-5 justify-between  items-center relative bg-black h-12  text-center'>
 
