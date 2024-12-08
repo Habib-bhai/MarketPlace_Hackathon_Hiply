@@ -3,7 +3,7 @@ import Products2 from "@/components/products2"
 import Image from "next/image"
 import { useState } from "react"
 
-export default function page({ params }: { params: { id: string } }) {
+export default function Page({ params }: { params: { id: string } }) {
 
     const [image, setImage] = useState("/images/products/nested/product1.jpg")
 

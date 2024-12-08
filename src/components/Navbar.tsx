@@ -80,26 +80,17 @@ export default function Navbar() {
 
                             <div className='hidden lg:flex font-montserrat text-sm font-bold text-[#737373] justify-center items-center gap-4'>
                                 <Link href={'/'} className='text-lg'> Home</Link>
-                                <Accordion type="single" collapsible className='relative'>
+                                   <Link href={"/shop"}> <Accordion type="single" collapsible className='relative'>
                                     <AccordionItem value="item-1" >
-                                        <AccordionTrigger className='font-montserrat font-bold text-base'>shop</AccordionTrigger>
-                                        <AccordionContent className='z-50 absolute top-12 bottom-0'>
-                                            <ul className='font-montserrat font-bold flex flex-col justify-center items-start gap-1'>
-                                                <li>Women's</li>
-                                                <li>Kids'</li>
-                                                <li>Men's</li>
-                                                <li>Apparel</li>
-                                                <li>Shoes</li>
-                                                <li>Accessories</li>
-                                                <li>Bags</li>
-                                            </ul>
-                                        </AccordionContent>
+                                        <AccordionTrigger className='font-montserrat font-bold text-base z-50'>shop</AccordionTrigger>
+                                        
                                     </AccordionItem>
                                 </Accordion>
+                                </Link>
                                 <Link href={"/about"} className='text-lg'> About</Link>
                                 <Link href={"/about"} className='text-lg'> Blog</Link>
                                 <Link href={'/contact'} className='text-lg'> Contact</Link>
-                                <Link href={"/signup"} className='text-lg'> Pages</Link>
+                                <Link href={"/contact"} className='text-lg'> Pages</Link>
                             </div>
 
                             <div className='relative flex justify-center items-center gap-8 '>
@@ -136,9 +127,8 @@ export default function Navbar() {
                                         <Link href="/" className='font-semibold text-3xl mb-8 '>Home</Link>
                                         <Link href="/contact" className='font-semibold text-3xl mb-8 '>Contact</Link>
                                         <Link href="/about" className='font-semibold text-3xl mb-8 '>About</Link>
-                                        <Link href="/signup" className='font-semibold text-3xl mb-8 '>Signup</Link>
-                                        <Link href="/login" className='font-semibold text-3xl mb-8 '>Login</Link>
-                                        <Link href="/wishlist" className='font-semibold text-3xl mb-8 '>Wish List</Link>
+                                        
+                                        
 
 
 
@@ -155,8 +145,8 @@ export default function Navbar() {
 
                         <div className='hidden lg:flex font-montserrat text-sm font-bold text-[#737373] justify-center items-center gap-8'>
                             <Link href={'/'} className='text-lg'> Home</Link>
-                            <Link href={"/about"} className='text-lg'> Product</Link>
-                            <Link href={"/about"} className='text-lg'> Pricing</Link>
+                            <Link href={"/shop"} className='text-lg'> Product</Link>
+                            <Link href={"/pricing"} className='text-lg'> Pricing</Link>
                             <Link href={'/contact'} className='text-lg'> Contact</Link>
 
                         </div>
@@ -187,9 +177,7 @@ export default function Navbar() {
                                     <Link href="/" className='font-semibold text-3xl mb-8 '>Home</Link>
                                     <Link href="/contact" className='font-semibold text-3xl mb-8 '>Contact</Link>
                                     <Link href="/about" className='font-semibold text-3xl mb-8 '>About</Link>
-                                    <Link href="/signup" className='font-semibold text-3xl mb-8 '>Signup</Link>
-                                    <Link href="/login" className='font-semibold text-3xl mb-8 '>Login</Link>
-                                    <Link href="/wishlist" className='font-semibold text-3xl mb-8 '>Wish List</Link>
+                                    
 
 
 

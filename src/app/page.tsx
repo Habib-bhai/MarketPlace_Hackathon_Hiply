@@ -4,7 +4,6 @@ import Featured from "@/components/Featured";
 import HeroSection from "@/components/HeroSection";
 import HeroTwo from "@/components/HeroTwo";
 import Winter from "@/components/Winter";
-import Image from "next/image";
 
 export default function Home() {
   return (

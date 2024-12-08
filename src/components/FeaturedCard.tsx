@@ -19,10 +19,10 @@ export default function FeaturedCard({image}: {image:string}) {
                 </div>
 
                 <h1 className="w-[247px] text-xl font-montserrat text-[#252B42] mt-2">Loudest à la Madison #1
-                    (L'integral)</h1>
+                    (L&apos;integral)</h1>
 
                 <p className="w-[280px] text-sm font-montserrat text-[#737373] mt-2"> We focus on ergonomics and meeting
-                    you where you work. It's only a
+                    you where you work. It&apos;s only a
                     keystroke away.
                 </p>
 

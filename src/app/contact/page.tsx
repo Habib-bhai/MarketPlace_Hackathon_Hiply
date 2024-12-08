@@ -94,8 +94,8 @@ export default function page() {
                     {/* Lets TAlk */}
                     <div className="mt-14 w-full flex flex-col justify-center items-center">
                         <Image src={"/images/team/Arrow.png"} alt="arrow"   height={40} width={40}/>
-                        <h5 className="text-base font-montserrat font-bold text-[#252B42]">WE Can't WAIT TO MEET YOU</h5>
-                        <h1 className="text-[58px] font-montserrat font-bold text-[#252B42]">Let’s Talk</h1>
+                        <h5 className="text-base font-montserrat font-bold text-[#252B42]">WE Can&apos;t WAIT TO MEET YOU</h5>
+                        <h1 className="text-[58px] font-montserrat font-bold text-[#252B42]">Let&apos;s Talk</h1>
                         <button className="w-[186px] h-[52px] bg-[#23A6F0] rounded-md text-white">Try it free now</button>
                     </div>
 

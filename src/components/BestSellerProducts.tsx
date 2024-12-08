@@ -1,3 +1,4 @@
+import Link from "next/link";
 import ProductCard from "./ProductCard";
 
 export default function BestSellerProducts() {
@@ -13,14 +14,14 @@ export default function BestSellerProducts() {
 
 
             <div className="w-full flex justify-center items-center flex-wrap gap-[30px]">
-                <ProductCard image="product-cover-5.png" />
-                <ProductCard image="product-cover-5a.png" />
-                <ProductCard image="product-cover-5b.png" />
-                <ProductCard image="product-cover-5c.png" />
-                <ProductCard image="product-cover-5d.png" />
-                <ProductCard image="product-cover-5e.png" />
-                <ProductCard image="product-cover-5f.png" />
-                <ProductCard image="product-cover-5g.png" />
+               <Link href={"/shop/a"}> <ProductCard image="product-cover-5.png" /> </Link>
+               <Link href={"/shop/b"}><ProductCard image="product-cover-5a.png" /> </Link>
+               <Link href={"/shop/c"}><ProductCard image="product-cover-5b.png" /> </Link>
+               <Link href={"/shop/d"}><ProductCard image="product-cover-5c.png" /> </Link>
+               <Link href={"/shop/e"}> <ProductCard image="product-cover-5d.png" /> </Link>
+               <Link href={"/shop/f"}> <ProductCard image="product-cover-5e.png" /> </Link>
+               <Link href={"/shop/g"}> <ProductCard image="product-cover-5f.png" /> </Link>
+               <Link href={"/shop/h"}> <ProductCard image="product-cover-5g.png" /> </Link>
             </div>
 
 

@@ -1,5 +1,6 @@
 import Image from "next/image"
 import heroImg from "../../public/images/hero-sec.jpg"
+import Link from "next/link"
 
 export default function HeroSection() {
     return (
@@ -12,8 +13,9 @@ export default function HeroSection() {
                 <p className=" text-base md:text-xl w-[350px] md:w-[376px] mb-7 text-[#fafafa]">We know how large objects will act, 
                 but things on a small scale.</p>
 
+                <Link href={"/shop"}>
                 <button className="rounded-sm w-[221px] h-[62px] bg-[#2DC071]">SHOP NOW</button>
-
+                </Link>   
             </div>
         </div>
     )

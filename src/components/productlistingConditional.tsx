@@ -6,7 +6,6 @@ import ProductCard from '@/components/ProductCard'
 import {
     Pagination,
     PaginationContent,
-    PaginationEllipsis,
     PaginationItem,
     PaginationLink,
     PaginationNext,
