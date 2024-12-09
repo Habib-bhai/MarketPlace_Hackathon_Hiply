@@ -17,7 +17,7 @@ export default function EditorsPick() {
 
                     {/* Men's */}
                     <div className="col-span-1 lg:col-span-2 row-span-2 md:row-span-6 h-[500px] lg:h-full relative">
-                        <Image src={"/images/editors-pick/image.png"} alt="1" className="w-full h-full object-cover" width={100} height={100} />
+                        <Image src={"/images/editors-Pick/image.png"} alt="1" className="w-full h-full object-cover" width={100} height={100} />
                         <Link href={"/shop"}>
                         <button className="rounded-sm w-[170px] h-[48px] bg-white text-base font-montserrat font-bold absolute bottom-5 left-5">MEN</button>
                         </Link>
@@ -25,7 +25,7 @@ export default function EditorsPick() {
 
                     {/* Women's  */}
                     <div className="col-span-1 row-span-2 md:row-span-6 h-[500px] lg:h-full relative">
-                        <Image src={"/images/editors-pick/image1.png"} alt="1" className="w-full h-full object-cover" width={100} height={100} sizes={"100vw"} />
+                        <Image src={"/images/editors-Pick/image1.png"} alt="1" className="w-full h-full object-cover" width={100} height={100} sizes={"100vw"} />
                         <Link href={"/shop"}>
                         <button className="rounded-sm w-[170px] h-[48px] bg-white text-base font-montserrat font-bold absolute bottom-5 left-5">WOMEN</button>
                         </Link>
@@ -37,7 +37,7 @@ export default function EditorsPick() {
                         {/* one */}
                         <div className="mb-3 col-span-1 row-span-1 md:row-span-3 h-[41%] relative">
                             
-                            <Image src={"/images/editors-pick/image2.png"} alt="1" className="w-full h-full object-cover" width={100} height={100} sizes={"100vw"} />
+                            <Image src={"/images/editors-Pick/image2.png"} alt="1" className="w-full h-full object-cover" width={100} height={100} sizes={"100vw"} />
 
                             <Link href={"/shop"}>
                             <button className="rounded-sm w-[170px] h-[48px] bg-white text-base font-montserrat font-bold absolute bottom-5 left-5">ACCESSORIES</button>
@@ -47,7 +47,7 @@ export default function EditorsPick() {
                         {/* two */}
                         <div className="col-span-1 row-span-1 md:row-span-3 h-[41%] relative">
                             
-                            <Image src={"/images/editors-pick/image3.png"} alt="1" className="w-full h-full object-cover" width={100} height={100} sizes={"100vw"} />
+                            <Image src={"/images/editors-Pick/image3.png"} alt="1" className="w-full h-full object-cover" width={100} height={100} sizes={"100vw"} />
                             <Link href={"/shop"}>
                             <button className="rounded-sm w-[170px] h-[48px] bg-white text-base font-montserrat font-bold absolute bottom-5 left-5">ACCESSORIES</button>
                             </Link>

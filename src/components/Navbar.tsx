@@ -75,7 +75,7 @@ export default function Navbar() {
                         <div className='flex justify-evenly items-center w-full border-b h-24 '>
 
                             {/* Secondary Part */}
-                            <h1 className='font-montserrat text-black text-2xl font-bold'>Bandage</h1>
+                            <Link href={"/"}><h1 className='font-montserrat text-black text-2xl font-bold'>Bandage</h1></Link>
 
                             <div className='hidden lg:flex font-montserrat text-sm font-bold text-[#737373] justify-center items-center gap-4'>
                                 <Link href={'/'} className='text-lg'> Home</Link>
@@ -140,7 +140,7 @@ export default function Navbar() {
                     </> :
                     <div className='flex justify-evenly items-center w-full border-b h-24 '>
                         {/* Secondary part when condition applies */}
-                        <h1 className='font-montserrat text-black text-2xl font-bold'>Bandage</h1>
+                       <Link href={"/"}> <h1 className='font-montserrat text-black text-2xl font-bold'>Bandage</h1></Link>
 
                         <div className='hidden lg:flex font-montserrat text-sm font-bold text-[#737373] justify-center items-center gap-8'>
                             <Link href={'/'} className='text-lg'> Home</Link>

@@ -45,11 +45,11 @@ export default function page() {
         <div className='flex flex-col justify-center items-start gap-5'>
           <h4 className='text-[#E74040] font-montserrat text-sm font-medium'>Problems trying</h4>
 
-          <h1 className='w-[394px] text-2xl font-montserrat font-bold '>Met minim Mollie non desert Alamo est sit cliquey dolor do met sent.</h1>
+          <h1 className='w-[394px] text-xl md:text-2xl font-montserrat font-bold '>Met minim Mollie non desert Alamo est sit cliquey dolor do met sent.</h1>
         </div>
 
         {/* paragraph */}
-        <p className='font-montserrat text-[#737373] text-sm mt-10 md:w-[529px]'>
+        <p className='font-montserrat text-[#737373] text-sm mt-10 w-[380px] md:w-[529px]'>
           Problems trying to resolve the conflict between the two major realms of Classical physics: Newtonian mechanics
         </p>
 
@@ -132,7 +132,7 @@ export default function page() {
         <div className='bg-[#fafafa] w-full flex flex-col justify-center items-center'>
 
           {/* heading and para */}
-          <h1 className='mb-5 mt-5 font-montserrat text-4xl font-bold text-black'>Big Companies Are Here</h1>
+          <h1 className='mb-5 mt-5 text-center font-montserrat text-4xl font-bold text-black'>Big Companies Are Here</h1>
 
           <p className='mt-3 mb-20  md:w-[440px] font-montserrat text-sm text-center text-[#737373]'>Problems trying to resolve the conflict between
             the two major realms of Classical physics: Newtonian mechanics </p>
