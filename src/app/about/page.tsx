@@ -88,7 +88,7 @@ export default function page() {
         <div className='w-full relative flex justify-center items-center'>
 
           <div className='relative w-full lg:w-[989px]   h-[540px] '>
-            <Image src={"/images/aboutpage/media-bg-cover.png"} alt='scenary' height={100} width={100} className=' w-full h-full object-cover lg:rounded-2xl' />
+            <Image src={"/images/aboutpage/media-bg-cover.png"} alt='scenary' height={600} width={600} className=' w-full h-full object-cover lg:rounded-2xl' />
 
             <div className='absolute top-1/2 left-[45%] w-[92px] h-[92px] rounded-full bg-[#23A6F0] flex justify-center items-center'>
               <Image src={"/images/aboutpage/play-icon.png"} alt='play' height={20} width={20} />
@@ -162,7 +162,7 @@ export default function page() {
             <button className='w-[132px] h-[52px] border-[1px] border-white rounded-md text-white'>Button</button>
 
           </div>
-          <Image src={"/images/aboutpage/image-girl.png"} alt='girl' height={ 100} width={100} className='w-[50%] h-full object-cover'/>
+          <Image src={"/images/aboutpage/image-girl.png"} alt='girl' height={1000} width={1000} className='w-[50%] h-full object-cover'/>
         </div>
 
 
