@@ -21,7 +21,7 @@ export default function page() {
 
                     <h3 className='text-base font-montserrat text-black font-bold'>CONTACT US</h3>
 
-                    <h1 className='my-5 text-2xl md:text-[58px] font-montserrat text-black font-bold w-[378px]'>Get in touch 
+                    <h1 className='my-5 text-2xl md:text-[58px] md:leading-[58px]     font-montserrat text-black font-bold w-[378px]'>Get in touch 
                     today!</h1>
 
                     <p className='mb-4 w-[376px] text-xl text-[#737373]'>We know how large objects will act, 

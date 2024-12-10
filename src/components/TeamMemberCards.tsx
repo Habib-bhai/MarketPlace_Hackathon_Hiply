@@ -5,7 +5,7 @@ export default function TeamMemberCards({image}:{image:string}) {
     return (
         <div>
             <div className='w-[316px] h-[383px] flex flex-col justify-center items-center'>
-                <Image src={image} alt='team member' height={100} width={100} className='w-full h-[231px] object-cover' />
+                <Image src={image} alt='team member' height={400} width={400} className='w-full h-[231px] object-cover' />
 
                 <h2 className='mt-8 text-base font-montserrat font-bold text-black'>Username</h2>
                 <p className='mt-2 mb-3 text-sm font-montserrat font-bold text-[#737373]'>Profession</p>
