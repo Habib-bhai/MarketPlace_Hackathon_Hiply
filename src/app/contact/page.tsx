@@ -14,7 +14,7 @@ export default function page() {
 
             {/* hero-section */}
             <div className="w-full h-[900px] mt-10 mb-20 relative">
-                <Image src={"/images/team/contact-hero-sec.png"} alt="hero section image" height={800} width={800} className="w-full h-full object-cover" />
+                <Image src={"/images/team/contact-hero-sec.png"} alt="hero section image" height={900} width={1200} className="w-full h-full object-cover" />
 
                 {/* headings and other text */}
                 <div className='ml-[10%] absolute top-1/3 w-[80%] flex flex-col justify-center items-start'>

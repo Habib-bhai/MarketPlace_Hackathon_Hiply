@@ -17,7 +17,7 @@ export default function EditorsPick() {
 
                     {/* Men's */}
                     <div className="col-span-1 lg:col-span-2 row-span-2 md:row-span-6 h-[500px] lg:h-full relative">
-                        <Image src={"/images/editors-Pick/image.png"} alt="1" className="w-full h-full object-cover" width={100} height={100} />
+                        <Image src={"/images/editors-Pick/image.png"} alt="1" className="w-full h-full object-cover" width={500} height={500} />
                         <Link href={"/shop"}>
                         <button className="rounded-sm w-[170px] h-[48px] bg-white text-base font-montserrat font-bold absolute bottom-5 left-5">MEN</button>
                         </Link>
