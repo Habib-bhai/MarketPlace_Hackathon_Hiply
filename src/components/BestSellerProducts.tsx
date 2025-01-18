@@ -1,7 +1,14 @@
 import Link from "next/link";
 import ProductCard from "./ProductCard";
+import { getProductData } from "../../utils/sanityDataImport";
+import { Data } from "../../utils/Types";
+import { urlFor } from "@/sanity/lib/image";
 
-export default function BestSellerProducts() {
+export default async function BestSellerProducts() {
+
+
+    const data: Data[] = await getProductData()
+
     return (
         <div className="w-screen mb-20">
             <div className="w-full flex flex-col justify-center items-center">
@@ -14,14 +21,9 @@ export default function BestSellerProducts() {
 
 
             <div className="w-full flex justify-center items-center flex-wrap gap-[30px]">
-               <Link href={"/shop/a"}> <ProductCard image="product-cover-5.png" /> </Link>
-               <Link href={"/shop/b"}><ProductCard image="product-cover-5a.png" /> </Link>
-               <Link href={"/shop/c"}><ProductCard image="product-cover-5b.png" /> </Link>
-               <Link href={"/shop/d"}><ProductCard image="product-cover-5c.png" /> </Link>
-               <Link href={"/shop/e"}> <ProductCard image="product-cover-5d.png" /> </Link>
-               <Link href={"/shop/f"}> <ProductCard image="product-cover-5e.png" /> </Link>
-               <Link href={"/shop/g"}> <ProductCard image="product-cover-5f.png" /> </Link>
-               <Link href={"/shop/h"}> <ProductCard image="product-cover-5g.png" /> </Link>
+                {
+                    data.map((item: Data) => (<ProductCard key={item.name} image={item?.image ? urlFor(item?.image).url() : ""} />))
+                }
             </div>
 
 

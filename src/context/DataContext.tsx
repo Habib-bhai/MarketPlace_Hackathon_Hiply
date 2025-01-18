@@ -1,33 +1,49 @@
 "use client"
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { Data } from "../../utils/Types";
+import { getProductData } from "../../utils/sanityDataImport";
 
 
-interface Data {
-    name: string,
-    price: number,
-    description: string,
-    image: string,
-    category: string[],
-    discountPercent: number,
-    new: boolean,
-    colors: string[],
-    sizes: string[]
-}
 
 
 interface DataContextValue {
     data: Data[],
-    setData: (data: Data[]) => void
+    setData: React.Dispatch<React.SetStateAction<Data[]>>
 }
 
 
 
 
-const context = createContext<DataContextValue | null>(null)
+const context = createContext<DataContextValue | undefined>(undefined)
 
 
 
-export const useDataContext =() => {
+
+
+
+
+ const DataContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+
+    const [data, setData] = useState<Data[]>([])
+
+    useEffect(() => {
+        async function DATA(){
+            
+            await getProductData()
+        }
+    }, [])
+
+    return (<context.Provider value={{ data, setData }}>
+        {children}
+    </context.Provider>
+    )
+} 
+
+
+export default DataContextProvider
+
+
+export const useDataContext = ():DataContextValue => {
     const contextValue = useContext(context)
 
     if(!contextValue) throw new Error("Data Fetching error!")
@@ -37,15 +53,3 @@ export const useDataContext =() => {
 
 
 
- const DataContext: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-
-    const [data, setData] = useState<Data[] >([])
-
-    return (<context.Provider value={{ data, setData }}>
-        {children}
-    </context.Provider>
-    )
-} 
-
-
-export default DataContext

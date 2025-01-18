@@ -5,7 +5,7 @@ export default function ProductCard({image}: {image:string}) {
         <div className="w-[238px] h-[615px] flex flex-col justify-center items-center">
             {/* image */}
             <div className="w-full h-[427px] flex justify-center items-center ">
-                <Image src={`/images/products/${image}`} alt="image" height={100} width={100} className={"w-full h-full object-cover"} />
+                <Image src={image} alt="image" height={100} width={100} className={"w-full h-full object-cover"} />
             </div>
 
             {/* product details */}

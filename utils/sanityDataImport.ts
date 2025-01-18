@@ -1,23 +1,30 @@
 
 import { client } from "@/sanity/lib/client";
-import { useDataContext } from "@/context/DataContext";
+import { Data } from "./Types";
 
- async function getProductData (){
-    try{
+export async function getProductData(): Promise<Data[]> {
+    try {
 
-        const {setData} = useDataContext()
-        
-        const query = ``
-        
-        const response = await client.fetch(query)
-        if(!response) throw new Error("Failed to fetch data")
-            const data = await response.json()   
-        setData(data)
+        const query = `*[_type == "products"] | order(priority desc, _updatedAt desc) {
+    name,
+    price,
+    description,
+    image,
+    category,
+    discountPercent,
+    new,
+    colors,
+    sizes,
+    
+}`
+
+        const response: Data[] = await client.fetch(query)
+        if (!response) throw new Error("Failed to fetch data")
+
+        return response
     }
 
-    catch(error: any) {
-        console.log("error====>>>>", error)
+    catch (error: any) {
+       return error
     }
 }
-
-getProductData()
