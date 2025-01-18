@@ -4,8 +4,14 @@ import Featured from "@/components/Featured";
 import HeroSection from "@/components/HeroSection";
 import HeroTwo from "@/components/HeroTwo";
 import Winter from "@/components/Winter";
+import { useDataContext } from "@/context/DataContext";
 
 export default function Home() {
+
+  const {data} = useDataContext()
+
+
+  console.log()
   return (
     <div>
      <HeroSection />   
