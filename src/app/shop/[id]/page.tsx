@@ -10,6 +10,6 @@ export default async function Page({ params }: { params: { id: string } }) {
     const filteredData: Data | undefined = Data.find((Item: Data) => Item._id === params.id)    
 
   return (
-    <ProductDetailsDynamicPageStructure SanityData={filteredData? filteredData: {_id: "", name: "", price: 0, description: "", image: "", category: [], discountPercent: 0, new: false, colors: [], sizes: [], tags: []}} />
+    <ProductDetailsDynamicPageStructure SanityData={filteredData? filteredData: {_id: "", name: "", price: 0, description: "", image: "", category: '', discountPercent: 0, new: false, colors: [], sizes: [], tags: []}} />
   )
 }
