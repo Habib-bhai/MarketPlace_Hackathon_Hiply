@@ -19,7 +19,7 @@ export default function ProductDetailsDynamicPageStructure({ SanityData }: { San
     console.log("==========ctcc=======", SanityData.category)
 
 
-    const [selectedImage, setSelectedImage] = useState("")
+    const [selectedImage] = useState("")
     const [selectedColor, setSelectedColor] = useState<string | null>(SanityData?.colors?.[0] || null)
     const [selectedSize, setSelectedSize] = useState<string | null>(SanityData?.sizes?.[0] || null)
     const [quantity, setQuantity] = useState(SanityData.price) //have to update this as well
@@ -376,7 +376,7 @@ export default function ProductDetailsDynamicPageStructure({ SanityData }: { San
                                     <span className="font-medium">Tags:</span>
                                     <div className="flex flex-wrap gap-1">
                                         {
-                                           data.tags.map(item => ( <Badge variant="secondary" className="text-xs">
+                                           data.tags.map( ( item)=> ( <Badge key={item} variant="secondary" className="text-xs">
                                             {data.category}
                                         </Badge>))
                                            

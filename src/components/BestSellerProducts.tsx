@@ -1,6 +1,4 @@
-import Link from "next/link";
 import ProductCard from "./ProductCard";
-import { getProductData } from "../../utils/sanityDataImport";
 import { Data } from "../../utils/Types";
 import { urlFor } from "@/sanity/lib/image";
 
