@@ -86,7 +86,7 @@ function ShopStructure({ _data }: { _data: Data[] }) {
     }
 
 
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
     const filterProducts = () => {
         const filtered = data.filter(product => {
             const productCategory = product.category?.toLowerCase()
@@ -128,6 +128,7 @@ function ShopStructure({ _data }: { _data: Data[] }) {
 
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         filterProducts()
     }, [data, selectedCategories, priceRange, selectedSizes, selectedTags, searchQuery])
 
