@@ -6,6 +6,7 @@ export async function getProductData(): Promise<Data[]> {
     try {
 
         const query = `*[_type == "products"] | order(priority desc, _updatedAt desc) {
+    _id,    
     name,
     price,
     description,
@@ -15,6 +16,7 @@ export async function getProductData(): Promise<Data[]> {
     new,
     colors,
     sizes,
+    tags
     
 }`
 

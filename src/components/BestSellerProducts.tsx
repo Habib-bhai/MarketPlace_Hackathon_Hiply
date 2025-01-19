@@ -4,10 +4,10 @@ import { getProductData } from "../../utils/sanityDataImport";
 import { Data } from "../../utils/Types";
 import { urlFor } from "@/sanity/lib/image";
 
-export default async function BestSellerProducts() {
+export default  function BestSellerProducts({DATA}: {DATA:Data[]}) {
 
-
-    const data: Data[] = await getProductData()
+// console.log(DATA)
+    
 
     return (
         <div className="w-screen mb-20">
@@ -22,7 +22,7 @@ export default async function BestSellerProducts() {
 
             <div className="w-full flex justify-center items-center flex-wrap gap-[30px]">
                 {
-                    data.map((item: Data) => (<ProductCard key={item.name} image={item?.image ? urlFor(item?.image).url() : ""} />))
+                    DATA.map((item: Data) => (<ProductCard key={item.name} name={item.name} category={item.category[0]}  id={item._id}  price={item.price} image={item?.image ? urlFor(item?.image).url() : ""} />))
                 }
             </div>
 

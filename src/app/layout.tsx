@@ -3,8 +3,10 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ProductlistingConditional from "@/components/productlistingConditional";
-import DataContextProvider from "@/context/DataContext";
+import { CartProvider } from "@/context/CartContext";
+import { WishlistProvider } from "@/context/WishlistContext";
+import { Toaster } from "@/components/ui/sonner";
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -22,22 +24,30 @@ export const metadata: Metadata = {
   description: "a Web created in the UI/UX hackathon",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
-          <Navbar />
-        <DataContextProvider>
-          {children}
-        </DataContextProvider>
-          <Footer />
-          <ProductlistingConditional />
+        <CartProvider>
+          <WishlistProvider>
+
+
+            <Navbar />
+            {children}
+            <Toaster />
+            <Footer />
+            
+          </WishlistProvider>
+        </CartProvider>
       </body>
     </html>
   );

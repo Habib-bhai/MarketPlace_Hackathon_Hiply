@@ -64,6 +64,17 @@ export default defineType({
             of:[
                 {type: 'string'}
             ]
+        },
+        {
+            name: "tags",
+            title: "Tags",
+            type: 'array',
+            of: [
+                { type: 'string' }
+            ],
+            options: {
+                layout: 'tags'
+            }
         }
     ],
 })

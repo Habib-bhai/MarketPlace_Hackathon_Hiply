@@ -14,6 +14,8 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
+import { Cart } from './Cart'
+import { Wishlist } from './WishList'
 
 
 
@@ -105,10 +107,9 @@ export default function Navbar() {
 
                                     <div className='flex justify-between items-center gap-5'>
                                         <Image src={"/images/navbar/search.svg"} alt='search' height={20} width={20} className={"cursor-pointer"} />
-
-                                        <Image src={"/images/navbar/cart.svg"} alt='search' height={20} width={20} className={"cursor-pointer text-black lg:text-[#23A6F0]"} />
-
-                                        <Image src={"/images/navbar/heart.svg"} alt='search' height={20} width={20} className={"cursor-pointer hidden lg:block"} />
+                                        <Cart/>
+                                        {/* <Image src={"/images/navbar/heart.svg"} alt='search' height={20} width={20} className={"cursor-pointer hidden lg:block"} /> */}
+                                        <Wishlist />
 
                                     </div>
 

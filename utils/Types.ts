@@ -1,12 +1,14 @@
 
 export interface Data {
+    _id: string
     name: string,
     price: number,
     description: string,
     image: string,
-    category: string[],
+    category: string,
     discountPercent: number,
     new: boolean,
     colors: string[],
-    sizes: string[]
+    sizes: string[],
+    tags: string[]
 }
