@@ -1,14 +1,13 @@
 "use client"
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-
 import {
     Sheet,
     SheetContent,
     SheetTrigger,
 } from "@/components/ui/sheet"
-
 import {
     Accordion,
     AccordionItem,
@@ -16,30 +15,30 @@ import {
 } from "@/components/ui/accordion"
 import { Cart } from './Cart'
 import { Wishlist } from './WishList'
-import SearchDialog from './SearchDialogue' 
+import SearchDialog from './SearchDialogue'
+import { useState } from 'react'
 
 
 
 export default function Navbar() {
 
+    const [open, setOpen] = useState(false)
     const pathname = usePathname()
     let conditional = true
-    if(pathname =="/about" ||  pathname =="/pricing" || pathname =="/team" || pathname == "/contact"){
+    if (pathname == "/about" || pathname == "/pricing" || pathname == "/team" || pathname == "/contact") {
         conditional = false
-        
+
     }
 
     return (
         <div className='text-white flex justify-center items-center flex-col w-screen overflow-x-hidden'>
 
-           
             {
-
                 conditional ?
                     <>
                         <div className=' w-full hidden lg:flex lg:px-5 justify-between  items-center relative bg-black h-12  text-center'>
 
-                             {/* Primary part */}
+                            {/* Primary part */}
 
                             {/* contact and mail */}
                             <div className={`text-sm flex justify-center items-center gap-8 font-montserrat`}>
@@ -82,10 +81,10 @@ export default function Navbar() {
 
                             <div className='hidden lg:flex font-montserrat text-sm font-bold text-[#737373] justify-center items-center gap-4'>
                                 <Link href={'/'} className='text-lg'> Home</Link>
-                                   <Link href={"/shop"}> <Accordion type="single" collapsible className='relative'>
+                                <Link href={"/shop"}> <Accordion type="single" collapsible className='relative'>
                                     <AccordionItem value="item-1" >
                                         <AccordionTrigger className='font-montserrat font-bold text-base z-50'>shop</AccordionTrigger>
-                                        
+
                                     </AccordionItem>
                                 </Accordion>
                                 </Link>
@@ -106,11 +105,9 @@ export default function Navbar() {
                                         <p className='text-[#23A6F0] font-bold'>Register</p>
                                     </div>
 
-                                    <div className='flex justify-between items-center gap-5'>
-                                        {/* <Image src={"/images/navbar/search.svg"} alt='search' height={20} width={20} className={"cursor-pointer"} /> */}
+                                    <div className='hidden md:flex justify-between items-center gap-5'>
                                         <SearchDialog />
-                                        <Cart/>
-                                        {/* <Image src={"/images/navbar/heart.svg"} alt='search' height={20} width={20} className={"cursor-pointer hidden lg:block"} /> */}
+                                        <Cart />
                                         <Wishlist />
 
                                     </div>
@@ -119,18 +116,25 @@ export default function Navbar() {
 
 
 
-                                <Sheet>
+                                <Sheet open={open} onOpenChange={setOpen}>
                                     <SheetTrigger>
                                         <Image src={"/images/navbar/menu.svg"} alt='hamburger' height={20} width={20} className='block lg:hidden' />
                                     </SheetTrigger>
-                                    <SheetContent className='absolute top-24 w-screen bg-white h-screen flex flex-col justify-center items-center text-[#737373]'>
+                                    <SheetContent className='absolute top-24 w-screen bg h-screen flex flex-col justify-center items-center bg-gray-300 text-[#737373]'>
+
+                                        <div className='flex justify-center items-center w-full gap-4 mb-10'>
+                                            <SearchDialog />
+                                            <Cart />
+                                            <Wishlist />
+
+                                        </div>
+
+                                        <Link onClick={()=> setOpen(false)} href="/" className='font-semibold text-3xl mb-8 '>Home</Link>
+                                        <Link onClick={()=> setOpen(false)} href="/contact" className='font-semibold text-3xl mb-8 '>Contact</Link>
+                                        <Link onClick={()=> setOpen(false)} href="/about" className='font-semibold text-3xl mb-8 '>About</Link>
+                                        <Link onClick={()=> setOpen(false)} href="/shop" className='font-semibold text-3xl mb-8 '>Shop</Link>
 
 
-                                        <Link href="/" className='font-semibold text-3xl mb-8 '>Home</Link>
-                                        <Link href="/contact" className='font-semibold text-3xl mb-8 '>Contact</Link>
-                                        <Link href="/about" className='font-semibold text-3xl mb-8 '>About</Link>
-                                        
-                                        
 
 
 
@@ -143,7 +147,7 @@ export default function Navbar() {
                     </> :
                     <div className='flex justify-evenly items-center w-full border-b h-24 '>
                         {/* Secondary part when condition applies */}
-                       <Link href={"/"}> <h1 className='font-montserrat text-black text-2xl font-bold'>Bandage</h1></Link>
+                        <Link href={"/"}> <h1 className='font-montserrat text-black text-2xl font-bold'>Bandage</h1></Link>
 
                         <div className='hidden lg:flex font-montserrat text-sm font-bold text-[#737373] justify-center items-center gap-8'>
                             <Link href={'/'} className='text-lg'> Home</Link>
@@ -179,7 +183,7 @@ export default function Navbar() {
                                     <Link href="/" className='font-semibold text-3xl mb-8 '>Home</Link>
                                     <Link href="/contact" className='font-semibold text-3xl mb-8 '>Contact</Link>
                                     <Link href="/about" className='font-semibold text-3xl mb-8 '>About</Link>
-                                    
+
 
 
 

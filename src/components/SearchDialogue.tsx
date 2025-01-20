@@ -1,4 +1,4 @@
-import React, {  useState } from 'react';
+import React, {  SetStateAction, useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,6 +33,7 @@ const SearchDialog = () => {
     const [searchResults, setSearchResults] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
+    const [open, setOpen] = useState(false);
     const resultsPerPage = 4;
     const router = useRouter();
 
@@ -79,18 +80,24 @@ const SearchDialog = () => {
 
     const totalPages = Math.ceil(searchResults.length / resultsPerPage);
 
+    const handleProductClick = (productId: string) => {
+        setOpen(false); // Close the dialog
+        router.push(`/shop/${productId}`); // Navigate to product page
+      };
+
+
     return (
-        <Dialog>
-            <DialogTrigger asChild>
+        <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild className=''>
                 <Image
                     src="/images/navbar/search.svg"
                     alt='search'
                     height={20}
                     width={20}
-                    className="cursor-pointer"
+                    className="cursor-pointer h-[30px] w-[30px] md:h-[20px] md:w-[20px] object-cover"
                 />
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[600px]">
+            <DialogContent className="sm:max-w-[600px] ">
                 <DialogHeader>
                     <DialogTitle className="text-xl font-montserrat mb-4">Search Products</DialogTitle>
                 </DialogHeader>
@@ -123,7 +130,7 @@ const SearchDialog = () => {
                         <div
                             key={product._id}
                             className="my-4 flex gap-4 p-4 border rounded-lg hover:border-[#23A6F0] cursor-pointer"
-                            onClick={() => router.push(`/shop/${product._id}`)}
+                            onClick={() => handleProductClick(product._id)}
                         >
                             <div className="w-24 h-24 relative flex-shrink-0">
                                 <Image
