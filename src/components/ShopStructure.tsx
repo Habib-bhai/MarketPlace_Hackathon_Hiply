@@ -7,6 +7,14 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import {
+    Pagination,
+    PaginationContent,
+    PaginationItem,
+    PaginationNext,
+    PaginationPrevious,
+} from "@/components/ui/pagination"
+
 import { Checkbox } from "@/components/ui/checkbox"
 import { Slider } from "@/components/ui/slider"
 import { Data } from '../../utils/Types';
@@ -30,10 +38,14 @@ function ShopStructure({ _data }: { _data: Data[] }) {
     const [data] = useState<Data[]>(_data)
     const [filteredData, setFilteredData] = useState<Data[]>(data)
 
+    const DataPerPage = 10
+    const [startIndex, setStartIndex] = useState(0)
+    const [endIndex, setEndIndex] = useState(DataPerPage)
+
 
     const sizes = ["XS", "S", "M", "L", "XL", "XXL"]
 
-    const categories = ["tshirts","shirt","hoodie", "jeans", "short" ]
+    const categories = ["tshirts", "shirt", "hoodie", "jeans", "short"]
 
     const productTags = [
         'new arrival',
@@ -86,7 +98,7 @@ function ShopStructure({ _data }: { _data: Data[] }) {
     }
 
 
-// eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const filterProducts = () => {
         const filtered = data.filter(product => {
             const productCategory = product.category?.toLowerCase()
@@ -134,9 +146,9 @@ function ShopStructure({ _data }: { _data: Data[] }) {
 
     //   
 
-    console.log("----------FILTERED--------", filteredData, "----------FILTERED--------")
+    // console.log("----------FILTERED--------", filteredData, "----------FILTERED--------")
     return (
-        <div className='w-screen flex flex-col justify-center items-center'>
+        <div className='w-screen flex flex-col justify-center items-center overflow-x-hidden'>
 
             {/* page name and Route */}
             <div className='mt-10 mb-10 w-full flex justify-center items-center'>
@@ -224,7 +236,7 @@ function ShopStructure({ _data }: { _data: Data[] }) {
                 {/* results */}
                 <div className='flex flex-col gap-3'>
                     <Button variant={'blueVariant'} onClick={() => setFilteredData(data)}  >Show All </Button>
-                    <p className='mb-3'>Showing {filteredData.length} results</p>
+                    {/* <p className='mb-3'>Showing {filteredData.length} results</p> */}
                 </div>
 
                 {/* view */}
@@ -359,7 +371,7 @@ function ShopStructure({ _data }: { _data: Data[] }) {
                                                 onCheckedChange={() => toggleCategory(category)}
                                             />
                                             <span className="text-sm">{category}</span>
-                                       
+
                                         </label>
                                     ))}
                                 </div>
@@ -432,9 +444,35 @@ function ShopStructure({ _data }: { _data: Data[] }) {
             <div className='flex justify-center items-center flex-wrap gap-14'>
 
                 {
-                    filteredData.map((item: Data) => (<ProductCard key={item._id} name={item.name} category={item.category[0]} id={item._id} price={item.price} image={item?.image ? urlFor(item?.image).url() : ""} />))
+                    filteredData.slice(startIndex, endIndex).map((item: Data) => (<ProductCard key={item._id} name={item.name} category={item.category[0]} id={item._id} price={item.price} image={item?.image ? urlFor(item?.image).url() : ""} />))
                 }
             </div>
+
+            <Pagination>
+                <PaginationContent className='gap-5'>
+                    <PaginationItem>
+                        <PaginationPrevious
+                            className={`${startIndex === 0 ? `pointer-events-none` : undefined} text-black `}
+                            onClick={() => {
+                                setStartIndex(startIndex - DataPerPage)
+                                setEndIndex(endIndex - DataPerPage)
+                            }
+                            } />
+                    </PaginationItem>
+                    <PaginationItem>
+                        <PaginationNext
+                            className={`text-black`}
+                            onClick={() => {
+                                setStartIndex(startIndex + DataPerPage)
+                                setEndIndex(endIndex + DataPerPage)
+                            }
+                            } />
+                    </PaginationItem>
+                </PaginationContent>
+            </Pagination>
+
+
+
 
         </div>
     )

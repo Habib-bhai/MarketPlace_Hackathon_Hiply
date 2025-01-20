@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/accordion"
 import { Cart } from './Cart'
 import { Wishlist } from './WishList'
+import SearchDialog from './SearchDialogue' 
 
 
 
@@ -106,7 +107,8 @@ export default function Navbar() {
                                     </div>
 
                                     <div className='flex justify-between items-center gap-5'>
-                                        <Image src={"/images/navbar/search.svg"} alt='search' height={20} width={20} className={"cursor-pointer"} />
+                                        {/* <Image src={"/images/navbar/search.svg"} alt='search' height={20} width={20} className={"cursor-pointer"} /> */}
+                                        <SearchDialog />
                                         <Cart/>
                                         {/* <Image src={"/images/navbar/heart.svg"} alt='search' height={20} width={20} className={"cursor-pointer hidden lg:block"} /> */}
                                         <Wishlist />
