@@ -1,9 +1,10 @@
 "use client"
 
-import { useState } from "react"
+
 import { useForm } from "react-hook-form"
 
 interface BillingFormProps {
+  //  eslint-disable-next-line
   onComplete: (data: any) => void
 }
 
@@ -14,6 +15,7 @@ export default function BillingForm({ onComplete }: BillingFormProps) {
     formState: { errors },
   } = useForm()
 
+  //  eslint-disable-next-line
   const onSubmit = (data: any) => {
     onComplete({ billing: data })
   }

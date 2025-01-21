@@ -1,4 +1,5 @@
 import { CartItem } from "@/context/CartContext" 
+import Image from "next/image"
 
 interface OrderSummaryProps {
   cartItems: CartItem[]
@@ -14,7 +15,7 @@ export default function OrderSummary({ cartItems, total }: OrderSummaryProps) {
         {cartItems.map((item) => (
           <div key={item.id} className="flex items-center justify-between">
             <div className="flex items-center">
-              <img src={item.image || "/placeholder.svg"} alt={item.name} className="w-16 h-16 object-cover rounded" />
+              <Image src={item.image || "/placeholder.svg"} alt={item.name} className="w-16 h-16 object-cover rounded"  height={100} width={100}/>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-900">{item.name}</p>
                 <p className="text-sm text-gray-500">Qty {item.quantity}</p>

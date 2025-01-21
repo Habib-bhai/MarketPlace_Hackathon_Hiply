@@ -9,7 +9,12 @@ const shippingMethods = [
 ]
 
 interface ShippingMethodProps {
-  onComplete: (data: any) => void
+  onComplete: (data: {shippingMethod: {
+    id: string;
+    title: string;
+    turnaround: string;
+    price: number
+  }| undefined}) => void
 }
 
 export default function ShippingMethod({ onComplete }: ShippingMethodProps) {

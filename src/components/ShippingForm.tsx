@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 
 interface ShippingFormProps {
+  //  eslint-disable-next-line
   onComplete: (data: any) => void
 }
 
@@ -15,6 +16,7 @@ export default function ShippingForm({ onComplete }: ShippingFormProps) {
   } = useForm()
   const [sameAsBilling, setSameAsBilling] = useState(false)
 
+  //  eslint-disable-next-line
   const onSubmit = (data: any) => {
     onComplete({ shipping: data })
   }

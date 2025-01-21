@@ -2,9 +2,12 @@ import { CartItem } from "@/context/CartContext"
 
 interface OrderConfirmationProps {
   formData: {
-    billing: any
-    shipping: any
-    shippingMethod: any
+    // eslint-disable-next-line
+    billing: any 
+    // eslint-disable-next-line
+    shipping: any 
+    // eslint-disable-next-line
+    shippingMethod: any 
     paymentMethod: string
   }
   cartItems: CartItem[]

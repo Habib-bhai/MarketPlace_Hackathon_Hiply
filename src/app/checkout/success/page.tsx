@@ -22,14 +22,15 @@ export default function CheckoutPage() {
   })
   const { state: cartState } = useCart()
 
+  //  eslint-disable-next-line
   const handleStepComplete = (stepData: any) => {
     setFormData((prev) => ({ ...prev, ...stepData }))
     setCurrentStep((prev) => prev + 1)
   }
 
-  const handleStepBack = () => {
-    setCurrentStep((prev) => prev - 1)
-  }
+  // const handleStepBack = () => {
+  //   setCurrentStep((prev) => prev - 1)
+  // }
 
   const renderStep = () => {
     switch (currentStep) {

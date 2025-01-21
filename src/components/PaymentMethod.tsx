@@ -11,7 +11,7 @@ const paymentMethods = [
 ]
 
 interface PaymentMethodProps {
-  onComplete: (data: any) => void
+  onComplete: (data: {paymentMethod: string}) => void
 }
 
 export default function PaymentMethod({ onComplete }: PaymentMethodProps) {
