@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useReducer, ReactNode } from 'react'
 
-interface CartItem {
+export interface CartItem {
   id: string
   name: string
   price: number
