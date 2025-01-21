@@ -16,15 +16,9 @@ export default async function page() {
 
     const Data: Data[] = await getProductData()
 
-    
- 
-
-
     return (
         <>
-
         <ShopStructure _data={Data}/>            
-
         </>
     )
 }
