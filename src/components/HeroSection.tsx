@@ -5,7 +5,7 @@ import Link from "next/link"
 export default function HeroSection() {
     return (
         <div className={`mb-20 w-screen relative flex flex-col justify-center items-center `}>
-            <Image src={heroImg} alt="hero" className="w-screen h-screen  object-cover" />
+            <Image loading="eager" src={heroImg} alt="hero" className="w-screen h-screen  object-cover" />
 
             <div className="font-montserrat text-white absolute left-[20%] flex flex-col justify-center items-start">
                 <p className=" font-bold text-base mb-10">SUMMER 2020</p>
