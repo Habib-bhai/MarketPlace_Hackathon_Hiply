@@ -1,10 +1,9 @@
-# This is the Ui/Ux Hackathon repo.
-## Here is the approach I've followed through out the Hackathon:
-### 1) Have used Shadcn Ui for components like accordian and sheet.
-### 2) Tried to write modular code i.e code that I can reused on different pages.
-### 3) Tried my best to add meaninfull commentes on important parts of code so that when I come back on this project in future I can carry on with it.
-### 4) Have used props to make my components customizeable.
-### 5) Implemented Dynamic route and added Dummy data to add a bit of interactivity
+
+
+
+
+
+
 
 <hr/>
 
