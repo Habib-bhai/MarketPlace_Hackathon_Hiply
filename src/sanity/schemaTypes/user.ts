@@ -30,6 +30,15 @@ export const User = defineType({
             type: "number",
             title: "Phone"
         }),
+
+        defineField(
+            {
+                name: "orders",
+                type: "reference",
+                to: [{type: "orders"}]
+            }
+        )
+
         
 
     ]

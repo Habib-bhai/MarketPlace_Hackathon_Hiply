@@ -16,19 +16,41 @@ import {
 import { Cart } from './Cart'
 import { Wishlist } from './WishList'
 import SearchDialog from './SearchDialogue'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 
 
 export default function Navbar() {
 
     const [open, setOpen] = useState(false)
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+
     const pathname = usePathname()
     let conditional = true
     if (pathname == "/about" || pathname == "/pricing" || pathname == "/team" || pathname == "/contact") {
         conditional = false
-
     }
+
+
+
+    useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const res = await fetch('/api/auth/authStatus', {
+                    credentials: 'include' // Essential for sending cookies
+                });
+
+                const data = await res.json();
+                setIsAuthenticated(data.isAuthenticated);
+            } catch (error:any) {
+                setIsAuthenticated(false);
+                console.log(error.message)
+            }
+        };
+
+        checkAuth();
+    }, []);
+
 
     return (
         <div className='text-white flex justify-center items-center flex-col w-screen overflow-x-hidden z-10'>
@@ -91,21 +113,35 @@ export default function Navbar() {
                                 <Link href={"/about"} className='text-lg'> About</Link>
                                 <Link href={"/about"} className='text-lg'> Blog</Link>
                                 <Link href={'/contact'} className='text-lg'> Contact</Link>
-                                <Link href={"/contact"} className='text-lg'> Pages</Link>
+
                             </div>
 
                             <div className='relative flex justify-center items-center gap-8 '>
 
                                 <div className='flex justify-center items-center'>
 
-                                    <div className='hidden w-[166px] font-montserrat text-sm lg:flex justify-center items-center gap-1'>
-                                        <Image src={"/images/navbar/user.svg"} alt='search' height={15} width={15} />
-                                        <p className='text-[#23A6F0] font-bold'>Login</p>
-                                        /
-                                        <p className='text-[#23A6F0] font-bold'>Register</p>
-                                    </div>
 
-                                    <div className='hidden md:flex justify-between items-center gap-5'>
+                                    <div className='hidden md:flex justify-between items-center gap-8'>
+
+                                        {/* user profile button */}
+                                        <div className='hidden font-montserrat text-sm lg:flex justify-center items-center text-black'>
+
+                                            {
+                                                isAuthenticated ?
+                                                    <Link href={"/profile"}>
+                                                        <div className='w-9 h-9 hover:bg-gray-100 hover:rounded-lg flex justify-center items-center'>
+
+                                                            <Image src={"/images/navbar/user.svg"} alt='search' height={20} width={20} className='cursor-pointer ' />
+                                                        </div>
+                                                    </Link>
+
+                                                    :
+
+                                                    <p className='text-[#23A6F0] font-bold'>Login</p>
+                                            }
+
+                                        </div>
+
                                         <SearchDialog />
                                         <Cart />
                                         <Wishlist />

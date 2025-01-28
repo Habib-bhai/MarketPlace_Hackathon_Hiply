@@ -39,7 +39,7 @@ export const POST = async (request: NextRequest) => {
     if (!passwordComparison) return NextResponse.json({ message: "Invalid password" }, {status: 400})
 
 
-    const token = jwt.sign({_id: user._id}, "secretkey", {expiresIn: "2d"})
+    const token = jwt.sign({_id: user._id}, String(process.env.JWT_SECRET), {expiresIn: "2d"})
     
     
     const response = NextResponse.json({message: "login successful"})

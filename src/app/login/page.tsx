@@ -33,6 +33,7 @@ function LoginPage() {
             },
             body: JSON.stringify(inputValues)
          })   
+         console.log(response)
 
          if(response.ok){
             const result = await response.json()

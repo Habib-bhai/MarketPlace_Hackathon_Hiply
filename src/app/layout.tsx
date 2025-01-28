@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { CartProvider } from "@/context/CartContext";
 import { WishlistProvider } from "@/context/WishlistContext";
 import { Toaster } from "@/components/ui/sonner";
+import { UserProvider } from "@/context/userContext";
 
 
 const geistSans = localFont({
@@ -37,16 +38,18 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
-        <CartProvider>
-          <WishlistProvider>
+        <UserProvider>
+          <CartProvider>
+            <WishlistProvider>
 
-            <Navbar />
-            {children}
-            <Toaster />
-            <Footer />
+              <Navbar />
+              {children}
+              <Toaster />
+              <Footer />
 
-          </WishlistProvider>
-        </CartProvider>
+            </WishlistProvider>
+          </CartProvider>
+        </UserProvider>
       </body>
     </html>
   );
