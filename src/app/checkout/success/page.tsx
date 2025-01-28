@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { useCart } from "@/context/CartContext" 
+import { useCart } from "@/context/CartContext"
 import CheckoutSteps from "@/components/CheckoutSteps"
 import BillingForm from "@/components/BillingForm"
 import ShippingForm from "@/components/ShippingForm"
@@ -9,14 +9,17 @@ import ShippingMethod from "@/components/ShippingMethod"
 import PaymentMethod from "@/components/PaymentMethod"
 import OrderSummary from "@/components/OrderSummary"
 import OrderConfirmation from "@/components/OrderConfirmation"
+import { Button } from "@/components/ui/button"
+import OrderSuccessAnimation from "@/components/OrderSuccess"
 
 const steps = ["Billing", "Shipping", "Shipping Method", "Payment", "Confirmation"]
 
 export default function CheckoutPage() {
+  const { state } = useCart()
+
   const [currentStep, setCurrentStep] = useState(0)
   const [formData, setFormData] = useState({
     billing: {},
-    shipping: {},
     shippingMethod: "",
     paymentMethod: "",
   })
@@ -37,17 +40,43 @@ export default function CheckoutPage() {
       case 0:
         return <BillingForm onComplete={handleStepComplete} />
       case 1:
-        return <ShippingForm onComplete={handleStepComplete} />
-      case 2:
         return <ShippingMethod onComplete={handleStepComplete} />
-      case 3:
+      case 2:
         return <PaymentMethod onComplete={handleStepComplete} />
+      case 3:
+        return <OrderConfirmation onComplete={handleStepComplete} orderHandler={orderHandlerFunc} formData={formData} cartItems={cartState.items} />
       case 4:
-        return <OrderConfirmation formData={formData} cartItems={cartState.items} />
+        return <OrderSuccessAnimation />
+
       default:
         return null
     }
   }
+
+  console.log("all steps done")
+
+  const orderHandlerFunc = async () => {
+    // console.log("=======>>>", state.items, state.total, formData)
+
+    const response = await fetch("http://localhost:3000/api/processOrder", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+        formData,
+        items: state.items,
+        total: state.total
+      })
+
+    })
+
+    console.log(response.ok, "HOGAYAAAAA")
+    console.log(response)
+  }
+
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -60,6 +89,7 @@ export default function CheckoutPage() {
           </div>
           <div className="md:col-span-1">
             <OrderSummary cartItems={cartState.items} total={cartState.total} />
+
           </div>
         </div>
       </div>
@@ -67,3 +97,13 @@ export default function CheckoutPage() {
   )
 }
 
+
+const OrderComplete = () => {
+  return (
+    <>
+      <div>
+
+      </div>
+    </>
+  )
+}

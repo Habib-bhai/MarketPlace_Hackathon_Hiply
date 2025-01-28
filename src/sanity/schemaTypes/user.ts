@@ -26,6 +26,21 @@ export const User = defineType({
             title: "Address"
         }),
         defineField({
+            name:"state",
+            type: "string",
+            title: "State"
+        }),
+        defineField({
+            name:"city",
+            type: "string",
+            title: "City"
+        }),
+        defineField({
+            name:"zipCode",
+            type: "number",
+            title: "Zip Code"
+        }),
+        defineField({
             name:"phone",
             type: "number",
             title: "Phone"

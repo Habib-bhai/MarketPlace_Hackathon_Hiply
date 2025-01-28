@@ -16,8 +16,6 @@ function SignUp() {
 
     const [inputValues, setinputValues] = useState({
         name: "",
-        address: "",
-        phone: 0,
         email: "",
         password: "",
 
@@ -76,24 +74,7 @@ function SignUp() {
                         })}
                         value={inputValues.name}
                     />
-                    <input
-                        placeholder="Address"
-                        type="text"
-                        className="outline-none bg-transparent border-[#C9C9C9] border-[1px] text-white text-center focus:bg-none active:bg-none autofill:bg-transparent fill-none w-[90%] md:w-[350px] h-12 rounded-2xl"
-                        onChange={(e) => setinputValues({
-                            ...inputValues, address: e.target.value
-                        })}
-                        value={inputValues.address}
-                    />
-                    <input
-                        placeholder="Phone"
-                        type="number"
-                        className="outline-none bg-transparent border-[#C9C9C9] border-[1px] text-white text-center focus:bg-none active:bg-none autofill:bg-transparent fill-none w-[90%] md:w-[350px] h-12 rounded-2xl"
-                        onChange={(e) => setinputValues({
-                            ...inputValues, phone: parseInt(e.target.value)
-                        })}
-                        value={inputValues.phone}
-                    />
+                    
                     <input
                         placeholder="Email"
                         type="email"
