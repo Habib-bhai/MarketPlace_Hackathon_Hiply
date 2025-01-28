@@ -5,13 +5,16 @@ import React, { useState } from "react"
 import { logInSchema } from "@/schemas/loginSchema"
 import { toast } from "sonner"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 const iceland = Iceland({
     subsets: ["latin"],
     weight: ["400"],
 })
 
-function loginPage() {
+function LoginPage() {
+
+    const router = useRouter()
 
     const [inputValues, setinputValues] = useState({
         email: "",
@@ -30,6 +33,12 @@ function loginPage() {
             },
             body: JSON.stringify(inputValues)
          })   
+
+         if(response.ok){
+            const result = await response.json()
+            toast(result.message)
+            router.push("/")
+         }
 
     }
 
@@ -80,4 +89,4 @@ function loginPage() {
     )
 }
 
-export default loginPage
+export default LoginPage

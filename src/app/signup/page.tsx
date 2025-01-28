@@ -12,7 +12,7 @@ const iceland = Iceland({
     weight: ["400"],
 })
 
-function signUp() {
+function SignUp() {
 
     const [inputValues, setinputValues] = useState({
         name: "",
@@ -123,4 +123,4 @@ function signUp() {
     )
 }
 
-export default signUp
+export default SignUp
