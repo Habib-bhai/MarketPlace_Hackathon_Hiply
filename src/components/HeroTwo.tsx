@@ -6,7 +6,7 @@ export default function HeroTwo() {
         <div className="w-screen ">
 
             {/* main container  */}
-            <div className="px-0 md:px-[10%] bg-[#23856d] w-full h-[709px] flex flex-col md:flex-row justify-evenly items-center">
+            <div className="px-0 md:px-[10%] bg-[#23856d] w-full h-[709px] flex flex-col lg:flex-row justify-evenly items-center">
 
                 {/* details */}
                 <div className=" font-montserrat text-white flex flex-col justify-center items-start">

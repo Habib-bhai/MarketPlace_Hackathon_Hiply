@@ -12,7 +12,17 @@ const client = createClient({
 })
 
 
+interface userEmails {
+    email: string
+}
+
 export const POST = async (request: NextRequest) => {
+
+    const query = `
+    *[_type == "user"] {
+    email
+    }
+    `
 
     const data = await request.json()
 
@@ -20,13 +30,21 @@ export const POST = async (request: NextRequest) => {
 
     if (!schemaResponse.success) return NextResponse.json(schemaResponse.error, { status: 400 })
 
-    // const salt = await bcrypt.genSalt(11);
+
     const hashedPassword = await bcrypt.hash(data.password, 11)
 
+    // check if email already exists
+    const emailExists = await client.fetch(query).then((data: userEmails[]) => data.find((item: userEmails) => item.email == schemaResponse.data.email))
 
-    const response =  await client.create({
+    if (emailExists) return NextResponse.json({ message: "Email already exists" }, { status: 400 })
+
+
+        // creating user and storing the user credentials
+    const response = await client.create({
         _type: "user",
         name: data.name,
+        address: data.address,
+        phone: data.phone,
         email: data.email,
         password: hashedPassword
     })

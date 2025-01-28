@@ -20,6 +20,17 @@ export const User = defineType({
             type: "string",
             title: "Password"
         }),
+        defineField({
+            name:"address",
+            type: "string",
+            title: "Address"
+        }),
+        defineField({
+            name:"phone",
+            type: "number",
+            title: "Phone"
+        }),
+        
 
     ]
 })

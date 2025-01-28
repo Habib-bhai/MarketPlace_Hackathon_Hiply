@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function EditorsPick() {
     return (
-        <div className="w-screen mb-20">
+        <div className="w-screen md:mt-[25rem] mb-20">
 
             {/* headings */}
             <div className="w-full flex flex-col justify-center items-center">

@@ -31,7 +31,7 @@ export default function Navbar() {
     }
 
     return (
-        <div className='text-white flex justify-center items-center flex-col w-screen overflow-x-hidden'>
+        <div className='text-white flex justify-center items-center flex-col w-screen overflow-x-hidden z-10'>
 
             {
                 conditional ?
@@ -129,10 +129,11 @@ export default function Navbar() {
 
                                         </div>
 
-                                        <Link onClick={()=> setOpen(false)} href="/" className='font-semibold text-3xl mb-8 '>Home</Link>
-                                        <Link onClick={()=> setOpen(false)} href="/contact" className='font-semibold text-3xl mb-8 '>Contact</Link>
-                                        <Link onClick={()=> setOpen(false)} href="/about" className='font-semibold text-3xl mb-8 '>About</Link>
-                                        <Link onClick={()=> setOpen(false)} href="/shop" className='font-semibold text-3xl mb-8 '>Shop</Link>
+                                        <Link onClick={() => setOpen(false)} href="/" className='font-semibold text-3xl mb-8 '>Home</Link>
+                                        <Link onClick={() => setOpen(false)} href="/contact" className='font-semibold text-3xl mb-8 '>Contact</Link>
+                                        <Link onClick={() => setOpen(false)} href="/about" className='font-semibold text-3xl mb-8 '>About</Link>
+                                        <Link onClick={() => setOpen(false)} href="/shop" className='font-semibold text-3xl mb-8 '>Shop</Link>
+                                        <Link onClick={() => setOpen(false)} href="/login" className='font-semibold text-3xl mb-8 '>Login</Link>
 
 
 

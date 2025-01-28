@@ -40,12 +40,11 @@ export default async function RootLayout({
         <CartProvider>
           <WishlistProvider>
 
-
             <Navbar />
             {children}
             <Toaster />
             <Footer />
-            
+
           </WishlistProvider>
         </CartProvider>
       </body>
