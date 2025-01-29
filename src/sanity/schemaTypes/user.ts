@@ -46,13 +46,11 @@ export const User = defineType({
             title: "Phone"
         }),
 
-        defineField(
-            {
-                name: "orders",
-                type: "reference",
-                to: [{type: "orders"}]
-            }
-        )
+        defineField({
+            name: "orders",
+            type: "array",
+            of: [{ type: "reference", to: [{ type: "orders" }] }]
+        })
 
         
 

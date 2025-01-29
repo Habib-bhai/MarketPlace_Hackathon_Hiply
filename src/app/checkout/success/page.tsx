@@ -56,26 +56,46 @@ export default function CheckoutPage() {
   console.log("all steps done")
 
   const orderHandlerFunc = async () => {
-    // console.log("=======>>>", state.items, state.total, formData)
-
-    const response = await fetch("http://localhost:3000/api/processOrder", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json"
+    // Restructure the data to match the expected format
+    const orderData = {
+      formData: {
+        billing: formData.billing,
+        items: state.items.map(item => ({
+          id: item.id, 
+          quantity: item.quantity,
+          name: item.name,
+          price: item.price,
+          image: item.image
+        }))
       },
-
-      body: JSON.stringify({
-        formData,
-        items: state.items,
-        total: state.total
-      })
-
-    })
-
-    console.log(response.ok, "HOGAYAAAAA")
-    console.log(response)
-  }
+      total: state.total
+    };
+  
+    try {
+      const response = await fetch("/api/processOrder", {  // Remove hardcoded localhost
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(orderData)
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Order processing failed:', errorData);
+        // Handle error appropriately
+        return;
+      }
+  
+      const result = await response.json();
+      console.log('Order processed successfully:', result);
+      // Handle success
+    } catch (error) {
+      console.error('Error processing order:', error);
+      // Handle error appropriately
+    }
+  };
 
 
   return (
@@ -97,13 +117,3 @@ export default function CheckoutPage() {
   )
 }
 
-
-const OrderComplete = () => {
-  return (
-    <>
-      <div>
-
-      </div>
-    </>
-  )
-}

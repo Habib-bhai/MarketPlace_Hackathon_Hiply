@@ -67,7 +67,7 @@ export default function ProductDetailsDynamicPageStructure({ SanityData }: { San
     const handleAddToCart = () => {
         if (data && selectedSize) {
             addItem({
-                id: `${data._id}-${selectedSize}`,
+                id: `${data._id}`,
                 name: `${data.name} (${selectedSize})`,
                 price: finalPrice,
                 image: data.image ? urlFor(data.image).url() : "",
