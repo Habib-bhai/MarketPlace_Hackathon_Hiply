@@ -13,7 +13,12 @@ export const middleware =(req: NextRequest) => {
     }    
 
     if (!token) {
-        if(path.startsWith("/checkout/") || path.startsWith("/profile/")) return NextResponse.redirect( new URL("/login", req.url),);
+        if(path.startsWith("/checkout/") ) return NextResponse.redirect( new URL("/login", req.url),);
+
+        NextResponse.next()
+    }
+    if (!token) {
+        if( path.startsWith("/profile/") ) return NextResponse.redirect( new URL("/login", req.url),);
 
         NextResponse.next()
     }
