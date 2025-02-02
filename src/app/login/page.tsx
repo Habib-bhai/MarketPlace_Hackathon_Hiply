@@ -26,7 +26,7 @@ function LoginPage() {
         const schemaResponse = await logInSchema.safeParseAsync(inputValues)
         if (!schemaResponse.success) return toast.error("Invalid Email or Password")
 
-         const response = await fetch("http://localhost:3000/api/auth/login",{
+         const response = await fetch("/api/auth/login",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -43,7 +43,7 @@ function LoginPage() {
          if(!response.ok){
             const result = await response.json()
             toast(result.message)
-            router.push("/")
+            throw new Error("login failed")
          }
 
     }
