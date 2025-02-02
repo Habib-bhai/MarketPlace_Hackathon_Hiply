@@ -42,9 +42,9 @@ export default function Navbar() {
 
                 const data = await res.json();
                 setIsAuthenticated(data.isAuthenticated);
-            } 
+            }
             //  eslint-disable-next-line
-            catch (error:any) {
+            catch (error: any) {
                 setIsAuthenticated(false);
                 console.log(error.message)
             }
@@ -138,8 +138,9 @@ export default function Navbar() {
                                                     </Link>
 
                                                     :
-
-                                                    <p className='text-[#23A6F0] font-bold'>Login</p>
+                                                    <Link href={"/login"}> 
+                                                        <p className='text-[#23A6F0] font-bold'>Login</p>
+                                                    </Link>
                                             }
 
                                         </div>
