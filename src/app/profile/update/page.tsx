@@ -61,7 +61,7 @@ export default function UpdateProfilePage() {
       updateUser({
         name: values.name,
         email: values.email,
-        avatar: previewImage || user.avatar,
+        image : previewImage || user.image,
       })
       toast("Profile Updated")
     }
@@ -90,7 +90,7 @@ export default function UpdateProfilePage() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <div className="flex items-center space-x-4">
             <Avatar className="w-24 h-24">
-              <AvatarImage src={previewImage || user.avatar} alt="Profile" />
+              <AvatarImage src={previewImage || user.image} alt="Profile" />
               <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
             </Avatar>
             <Button type="button" variant="outline" onClick={() => fileInputRef.current?.click()}>
