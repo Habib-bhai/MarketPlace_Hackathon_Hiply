@@ -65,7 +65,7 @@ export default function SidebarContent() {
           <div className="flex items-center gap-3 rounded-lg px-3 py-2">
             <Avatar>
               <AvatarImage src={user.image? urlFor(user.image).url() : ""} alt={user.name}  className="h-12 w-12 object-cover rounded-full capitalize"/>
-              <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+              <AvatarFallback>{user.name?.charAt(0)}</AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
               <span className="text-sm font-medium">{user.name}</span>
