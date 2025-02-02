@@ -40,6 +40,11 @@ function LoginPage() {
             toast(result.message)
             router.push("/")
          }
+         if(!response.ok){
+            const result = await response.json()
+            toast(result.message)
+            router.push("/")
+         }
 
     }
 

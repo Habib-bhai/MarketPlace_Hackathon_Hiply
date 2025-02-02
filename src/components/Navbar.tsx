@@ -138,7 +138,7 @@ export default function Navbar() {
                                                     </Link>
 
                                                     :
-                                                    <Link href={"/login"}> 
+                                                    <Link href={"/login"}>
                                                         <p className='text-[#23A6F0] font-bold'>Login</p>
                                                     </Link>
                                             }
@@ -159,13 +159,12 @@ export default function Navbar() {
                                     <SheetTrigger>
                                         <Image src={"/images/navbar/menu.svg"} alt='hamburger' height={20} width={20} className='block lg:hidden' />
                                     </SheetTrigger>
-                                    <SheetContent className='absolute top-24 w-screen bg h-screen flex flex-col justify-center items-center bg-gray-300 text-[#737373]'>
+                                    <SheetContent className='absolute top-24 w-screen bg h-screen flex flex-col justify-center items-center bg-gray-300 text-[#737373] '>
 
                                         <div className='flex justify-center items-center w-full gap-4 mb-10'>
                                             <SearchDialog />
                                             <Cart />
                                             <Wishlist />
-
                                         </div>
 
                                         <Link onClick={() => setOpen(false)} href="/" className='font-semibold text-3xl mb-8 '>Home</Link>
@@ -174,10 +173,6 @@ export default function Navbar() {
                                         <Link onClick={() => setOpen(false)} href="/shop" className='font-semibold text-3xl mb-8 '>Shop</Link>
                                         <Link onClick={() => setOpen(false)} href="/login" className='font-semibold text-3xl mb-8 '>Login</Link>
                                         <Link onClick={() => setOpen(false)} href="/profile" className='font-semibold text-3xl mb-8 '>profile</Link>
-
-
-
-
 
                                     </SheetContent>
                                 </Sheet>
