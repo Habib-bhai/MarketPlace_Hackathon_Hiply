@@ -1,30 +1,48 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { client } from "@/sanity/lib/client"
 
-const orders = [
-  {
-    id: "#12345",
-    date: "2024-01-28",
-    status: "Delivered",
-    total: 299.99,
-    items: 3,
-  },
-  {
-    id: "#12346",
-    date: "2024-01-27",
-    status: "Processing",
-    total: 199.99,
-    items: 2,
-  },
-  {
-    id: "#12347",
-    date: "2024-01-26",
-    status: "Shipped",
-    total: 99.99,
-    items: 1,
-  },
-]
 
-export default function OrdersPage() {
+const query = `
+*[_type == "orders"] {
+  _id,
+  _createdAt,
+  total,
+    products[] {
+    product->,
+    quantity,
+   
+  },
+  status
+
+}
+
+`
+
+interface Orders {
+  _id: string;
+  _createdAt: Date;
+  total: number;
+  products: {
+    product: {
+      name: string;
+      image: string;
+      price: number;
+    };
+    quantity: number;
+  }[];
+  status: string;
+}
+
+
+
+export default async function OrdersPage() {
+
+const orderData = await client.fetch(query) 
+
+  // const orders1: Orders[] = orderData.map((order: any) => (order.products.map((product: any) => product.quantity.reduce((a: number, b: number) => a + b, 0))))
+
+console.log(orderData, orderData[0].products)
+
   return (
     <div className="space-y-6">
       <div>
@@ -43,12 +61,12 @@ export default function OrdersPage() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {orders.map((order) => (
-            <TableRow key={order.id}>
-              <TableCell className="font-medium">{order.id}</TableCell>
-              <TableCell>{order.date}</TableCell>
+          {orderData.map((order:Orders) => (
+            <TableRow key={order._id}>
+              <TableCell className="font-medium">{order._id}</TableCell>
+              <TableCell>{new Date(order._createdAt).toLocaleDateString()}</TableCell>
               <TableCell>{order.status}</TableCell>
-              <TableCell>{order.items}</TableCell>
+              <TableCell>{order?.products?.reduce((acc, product) => acc + (product.quantity || 0), 0)}</TableCell>
               <TableCell className="text-right">${order.total}</TableCell>
             </TableRow>
           ))}

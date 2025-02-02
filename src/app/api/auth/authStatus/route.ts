@@ -8,6 +8,7 @@ export async function GET(req: NextRequest) {
 
     jwt.verify(token, String(process.env.JWT_SECRET));
     return NextResponse.json({ isAuthenticated: true });
+    //  eslint-disable-next-line
   } catch (error: any) {
 
     return NextResponse.json({ isAuthenticated: false, error: error.message });

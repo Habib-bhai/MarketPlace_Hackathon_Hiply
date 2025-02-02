@@ -26,6 +26,11 @@ export const orders = defineType({
                     {
                       name: 'quantity',
                       type: 'number'
+                    },
+                    {
+                      name: "size",
+                      title: "Size",
+                      type: "string"
                     }
                   ]
                 }
@@ -42,6 +47,40 @@ export const orders = defineType({
                     {title: "Returned",value: "returned"},
                 ]
             }
-        })
+        }),
+
+        defineField({
+          name: "address",
+          title: "Address",
+          type: "string"
+        }),
+        defineField({
+          name: "city",
+          title: "City",
+          type: "string"
+        }),
+        defineField({
+          name: "state",
+          title: "State",
+          type: "string"
+        }),
+        defineField({
+          name: "postalCode",
+          title: "Postal Code",
+          type: "string"
+        }),
+        defineField({
+          name: "country",
+          title: "Country",
+          type: "string"
+        }),
+
+        defineField({ 
+
+          name: "total",
+          title: "Total",
+          type: "number"
+        } )
+  
     ]
 });

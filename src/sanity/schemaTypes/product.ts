@@ -75,6 +75,19 @@ export default defineType({
             options: {
                 layout: 'tags'
             }
+        },
+
+        {
+            name: "stock",
+            title: "Stock",
+            type: "number"
+        },
+
+        {
+            name: "reviews",
+            title: "Reviews",
+            type: "number"
         }
+
     ],
 })

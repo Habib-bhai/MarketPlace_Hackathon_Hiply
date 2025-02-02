@@ -3,8 +3,6 @@
 import type React from "react"
 import { motion } from "framer-motion"
 import { Button } from "./ui/button"
-import { Link } from "lucide-react"
-import { buttonVariants } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 
 

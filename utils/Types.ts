@@ -10,5 +10,7 @@ export interface Data {
     new: boolean,
     colors: string[],
     sizes: string[],
-    tags: string[]
+    tags: string[],
+    stock: number,
+    reviews: number
 }

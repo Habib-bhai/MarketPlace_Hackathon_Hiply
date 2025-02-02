@@ -13,7 +13,7 @@ export const middleware =(req: NextRequest) => {
     }    
 
     if (!token) {
-        if(path.startsWith("/checkout/")) return NextResponse.redirect( new URL("/login", req.url),);
+        if(path.startsWith("/checkout/") || path.startsWith("/profile/")) return NextResponse.redirect( new URL("/login", req.url),);
 
         NextResponse.next()
     }
@@ -25,5 +25,5 @@ export const middleware =(req: NextRequest) => {
 
 
 export const config = {
-    matcher: ["/login", "/signup", "/checkout/:path*"]
+    matcher: ["/login", "/signup", "/checkout/:path*", "/profile/:path*"]
 }

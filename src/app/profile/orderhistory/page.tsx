@@ -1,47 +1,70 @@
 "use client"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { client } from "@/sanity/lib/client"
 
-const orderHistory = [
-  {
-    id: "#OH12345",
-    date: "2024-01-20",
-    items: 3,
-    total: 299.99,
-    status: "Delivered",
+
+
+
+const query = `
+*[_type == "orders"] {
+  _id,
+  _createdAt,
+  total,
+    products[] {
+    product->,
+    quantity,
+   
   },
-  {
-    id: "#OH12346",
-    date: "2024-01-15",
-    items: 1,
-    total: 199.99,
-    status: "Returned",
-  },
-  {
-    id: "#OH12347",
-    date: "2024-01-10",
-    items: 2,
-    total: 99.99,
-    status: "Delivered",
-  },
-  {
-    id: "#OH12348",
-    date: "2024-01-05",
-    items: 4,
-    total: 399.99,
-    status: "Delivered",
-  },
-]
+  status
+
+}
+
+`
+
+interface Orders {
+  _id: string;
+  _createdAt: Date;
+  total: number;
+  products: {
+    product: {
+      name: string;
+      image: string;
+      price: number;
+    };
+    quantity: number;
+  }[];
+  status: string;
+}
+
 
 export default function OrderHistoryPage() {
+
   const [filter, setFilter] = useState("all")
+  const [data, setdata] = useState<Orders[]>([])
 
-  const filteredOrders =
-    filter === "all" ? orderHistory : orderHistory.filter((order) => order.status.toLowerCase() === filter)
 
+  useEffect(() => {
+
+    const fetchOrders = async () => {
+
+      const SanityData: Orders[] = await client.fetch(query) 
+      const filteredData = SanityData.filter((order) => order.status === "delivered" || order.status === "returned")
+
+      setdata(filteredData)
+
+    }
+
+    fetchOrders()
+
+  }, [])
+
+
+
+  
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -73,14 +96,14 @@ export default function OrderHistoryPage() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {filteredOrders.map((order) => (
-            <TableRow key={order.id}>
-              <TableCell className="font-medium">{order.id}</TableCell>
-              <TableCell>{order.date}</TableCell>
-              <TableCell>{order.items}</TableCell>
-              <TableCell>${order.total.toFixed(2)}</TableCell>
+          {data.map((order) => (
+            <TableRow key={order._id}>
+              <TableCell className="font-medium">{order._id}</TableCell>
+              <TableCell>{new Date(order._createdAt).toLocaleDateString()  }</TableCell>
+              <TableCell>{order?.products?.reduce((acc, product) => acc + (product.quantity || 0), 0)}</TableCell>
+              <TableCell>${order.total}</TableCell>
               <TableCell>
-                <Badge variant={order.status === "Delivered" ? "default" : "destructive"}>{order.status}</Badge>
+                <Badge variant={order.status === "delivered" ? "default" : "destructive"}>{order.status}</Badge>
               </TableCell>
               <TableCell>
                 <Button variant="outline" size="sm">

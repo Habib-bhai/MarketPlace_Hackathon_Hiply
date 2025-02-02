@@ -106,7 +106,7 @@ export default function BillingForm({ onComplete }: BillingFormProps) {
             <option value="">Select a country</option>
             <option value="US">United States</option>
             <option value="CA">Canada</option>
-            <option value="MX">Pakistan</option>
+            <option value="PK">Pakistan</option>
           </select>
           {errors.country && <p className="mt-2 text-sm text-red-600">{errors.country.message as string}</p>}
         </div>

@@ -11,6 +11,7 @@ interface OrderConfirmationProps {
   }
   cartItems: CartItem[],
   orderHandler: ()=> void,
+  //  eslint-disable-next-line
   onComplete: (stepData: any)=> void
 }
 

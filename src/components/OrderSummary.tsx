@@ -1,6 +1,6 @@
 import { CartItem } from "@/context/CartContext"
 import Image from "next/image"
-import { Button } from "./ui/button"
+
 
 interface OrderSummaryProps {
   cartItems: CartItem[]

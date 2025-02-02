@@ -4,18 +4,21 @@ import {  X, ShoppingCart } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { useWishlist } from '@/context/WishlistContext'  
-import { useCart } from '@/context/CartContext' 
+// import { useCart } from '@/context/CartContext' 
 import Image from 'next/image'
-import { toast } from 'sonner'
+
+import { useRouter } from 'next/navigation'
 
 export function Wishlist() {
   const { state, removeItem } = useWishlist()
-  const { addItem } = useCart()
+  // const { addItem } = useCart()
 
-  const handleAddToCart = (item: { id: string; name: string; price: number; image: string }) => {
-    addItem({ ...item, quantity: 1 })
-    toast.success(`${item.name} added to cart`)
-  }
+  const router = useRouter()
+
+  // const handleAddToCart = (item: { id: string; name: string; price: number; image: string }) => {
+  //   addItem({ ...item, quantity: 1, size: '', stock: 0 })
+  //   toast.success(`${item.name} added to cart`)
+  // }
 
   return (
     <Sheet>
@@ -56,7 +59,7 @@ export function Wishlist() {
                   variant="outline"
                   size="icon"
                   className="h-8 w-8"
-                  onClick={() => handleAddToCart(item)}
+                  onClick={() => router.push(`/shop/${item.id}`)}
                 >
                   <ShoppingCart className="h-4 w-4" />
                 </Button>

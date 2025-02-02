@@ -10,6 +10,12 @@ export const User = defineType({
             type: "string",
             title: "Name"
         }),
+
+        defineField({
+            name: "image",
+            type: "image",
+            title: "Image"
+        }),
         defineField({
             name: "email",
             type: "string",
@@ -50,6 +56,14 @@ export const User = defineType({
             name: "orders",
             type: "array",
             of: [{ type: "reference", to: [{ type: "orders" }] }]
+        }),
+
+        defineField({
+            name: "role",
+            type: "string",
+            title: "Role",
+            initialValue: "user",
+            placeholder: "user"
         })
 
         

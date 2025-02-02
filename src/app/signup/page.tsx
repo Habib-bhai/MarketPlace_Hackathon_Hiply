@@ -26,6 +26,7 @@ function SignUp() {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault()
         const schemaResponse = await signUpSchema.safeParseAsync(inputValues)
+
         if (!schemaResponse.success) {
             console.log(schemaResponse.error)
             return toast.error(`${schemaResponse.error?.issues[0]?.message}`)
@@ -38,7 +39,9 @@ function SignUp() {
             },
             body: JSON.stringify(schemaResponse.data)
         })
+        
        const result = await response.json()
+       console.log(result)
        toast(result.message)
 
        if(response.ok){

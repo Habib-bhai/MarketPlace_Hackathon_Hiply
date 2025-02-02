@@ -16,7 +16,9 @@ export async function getProductData(): Promise<Data[]> {
     new,
     colors,
     sizes,
-    tags
+    tags,
+    stock,
+    reviews
     
 }`
 

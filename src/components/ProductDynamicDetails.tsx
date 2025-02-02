@@ -71,7 +71,9 @@ export default function ProductDetailsDynamicPageStructure({ SanityData }: { San
                 name: `${data.name} (${selectedSize})`,
                 price: finalPrice,
                 image: data.image ? urlFor(data.image).url() : "",
-                quantity: quantity
+                quantity: quantity,
+                size: selectedSize,
+                stock: data.stock
             });
             setIsAddedToCart(true);
             toast("Product added to cart");
@@ -90,7 +92,8 @@ export default function ProductDetailsDynamicPageStructure({ SanityData }: { San
                 id: data._id,
                 name: data.name,
                 price: data.price,
-                image: data.image ? urlFor(data.image).url() : "",
+                image: data.image ? urlFor(data.image).url() : ""
+
             });
             toast.success(`${data.name} added to wishlist`);
         }
@@ -164,20 +167,20 @@ export default function ProductDetailsDynamicPageStructure({ SanityData }: { San
 
                                 {/* Reviews */}
                                 {/* have to add the reviews field in the schema as well, temporarily using price */}
-                                {data?.price !== undefined && (
+                                {data?.reviews !== undefined && (
                                     <div className="flex items-center space-x-2">
                                         <div className="flex text-yellow-400">
                                             {[...Array(5)].map((_, i) => (
                                                 <svg
                                                     key={i}
-                                                    className={`w-5 h-5 ${i < Math.floor(data.price / 20) ? 'fill-current' : 'fill-gray-300'}`}
+                                                    className={`w-5 h-5 ${i < Math.floor(data.reviews / 20) ? 'fill-current' : 'fill-gray-300'}`}
                                                     viewBox="0 0 20 20"
                                                 >
                                                     <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
                                                 </svg>
                                             ))}
                                         </div>
-                                        <span className="text-sm text-gray-500">({data.price} Reviews)</span>
+                                        <span className="text-sm text-gray-500">({data.reviews} Reviews)</span>
                                     </div>
                                 )}
 
@@ -258,7 +261,7 @@ export default function ProductDetailsDynamicPageStructure({ SanityData }: { San
                                 <div className="flex justify-between items-center">
                                     <span className="text-sm font-medium">Quantity</span>
                                     <span className="text-sm text-gray-500">
-                                        {data?.price ? `${data.price} in stock` : 'Out of stock'}
+                                        {data?.stock ? `${data.stock} in stock` : 'Out of stock'}
                                     </span>
                                 </div>
 

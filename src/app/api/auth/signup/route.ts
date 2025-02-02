@@ -39,14 +39,14 @@ export const POST = async (request: NextRequest) => {
     if (emailExists) return NextResponse.json({ message: "Email already exists" }, { status: 400 })
 
 
-        // creating user and storing the user credentials
+    // creating user and storing the user credentials
     const response = await client.create({
         _type: "user",
         name: data.name,
-        address: data.address,
         phone: data.phone,
         email: data.email,
-        password: hashedPassword
+        password: hashedPassword,
+        role: "user"
     })
 
 

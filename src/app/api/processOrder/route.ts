@@ -106,8 +106,8 @@ import { NextResponse, type NextRequest } from "next/server";
 
 
 const generateKey = () => {
-    return Math.random().toString(36).substring(2, 15) + 
-           Math.random().toString(36).substring(2, 15);
+    return Math.random().toString(36).substring(2, 15) +
+        Math.random().toString(36).substring(2, 15);
 };
 
 
@@ -117,7 +117,8 @@ interface product {
     name: string,
     price: number,
     image: string,
-    quantity: number
+    quantity: number,
+    size: string
 }
 const client = createClient({
     projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
@@ -139,14 +140,14 @@ export const POST = async (req: NextRequest) => {
 
         try {
             const verifiedToken = jwt.verify(token, String(process.env.JWT_SECRET)) as jwt.JwtPayload;
-            
+
             // First, verify that all products exist in Sanity
             const productIds = data.formData.items.map((item: product) => item.id);
             const productsQuery = `*[_type == "products" && _id in $ids]._id`;
             const existingProducts = await client.fetch(productsQuery, { ids: productIds });
 
             // Check if all products exist
-            const missingProducts = productIds.filter((id:string) => !existingProducts.includes(id));
+            const missingProducts = productIds.filter((id: string) => !existingProducts.includes(id));
             if (missingProducts.length > 0) {
                 return NextResponse.json({
                     error: `Products not found: ${missingProducts.join(', ')}`,
@@ -182,8 +183,16 @@ export const POST = async (req: NextRequest) => {
                             _ref: product.id,
                         },
                         quantity: product.quantity,
+                        size: product.size
                     })),
                 status: "pending",
+                address: data?.formData?.billing?.address,
+                state: data?.formData?.billing?.state,
+                city: data?.formData?.billing?.city,
+                postalCode: data?.formData?.billing?.postalCode,
+                country: data?.formData?.billing?.country,
+                total: data?.total
+               
             };
 
             // Create order

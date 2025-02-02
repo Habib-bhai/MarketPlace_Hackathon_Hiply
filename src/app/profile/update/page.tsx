@@ -11,9 +11,9 @@ import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { toast } from "sonner" 
+import { toast } from "sonner"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { useUser } from "@/context/userContext" 
+import { useUser } from "@/context/userContext"
 import { formSchema } from "@/schemas/formSchema"
 
 
@@ -21,7 +21,7 @@ export default function UpdateProfilePage() {
   const [isLoading, setIsLoading] = useState(false)
   const [previewImage, setPreviewImage] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
- 
+
   const { user, updateUser } = useUser()
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -38,10 +38,25 @@ export default function UpdateProfilePage() {
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true)
-    // Simulate API call
-    setTimeout(() => {
+    const response = await fetch("/api/profileUpdate", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        data: values,
+        image: previewImage
+      })
+    })
+    if (!response.ok) {
+      setIsLoading(false)
+      throw new Error("failed to update profile")
+    }
+    if (response.ok) {
       setIsLoading(false)
       updateUser({
         name: values.name,
@@ -49,7 +64,8 @@ export default function UpdateProfilePage() {
         avatar: previewImage || user.avatar,
       })
       toast("Profile Updated")
-    }, 2000)
+    }
+
   }
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {

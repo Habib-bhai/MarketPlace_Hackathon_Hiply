@@ -6,7 +6,7 @@ import { createContext, useState, useContext, useEffect } from "react"
 type User = {
   name: string
   email: string
-  avatar: string
+  image: string
   role: string
 }
 
@@ -16,10 +16,10 @@ type UserContextType = {
 }
 
 const defaultUser: User = {
-  name: "John Doe",
-  email: "john@example.com",
-  avatar: "/placeholder.svg",
-  role: "User",
+  name: "",
+  email: "",
+  image: "",
+  role: "",
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined)
@@ -28,9 +28,17 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User>(defaultUser)
 
   useEffect(() => {
-    // Here you would typically fetch the user data from an API
-    // For now, we'll just use the default user
-    setUser(defaultUser)
+
+    const defaultSanityData = async () => {
+      const defaultUser = await fetch("/api/getUser", {
+        method: "POST",
+        credentials: "include"
+      }).then((res) => res.json())
+      console.log(defaultUser)
+      setUser(defaultUser)
+    }
+
+    defaultSanityData()
   }, [])
 
   const updateUser = (updates: Partial<User>) => {
@@ -48,4 +56,3 @@ export function useUser() {
   }
   return context
 }
-

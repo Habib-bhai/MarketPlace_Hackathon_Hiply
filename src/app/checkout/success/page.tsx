@@ -4,17 +4,16 @@ import { useState } from "react"
 import { useCart } from "@/context/CartContext"
 import CheckoutSteps from "@/components/CheckoutSteps"
 import BillingForm from "@/components/BillingForm"
-import ShippingForm from "@/components/ShippingForm"
 import ShippingMethod from "@/components/ShippingMethod"
 import PaymentMethod from "@/components/PaymentMethod"
 import OrderSummary from "@/components/OrderSummary"
 import OrderConfirmation from "@/components/OrderConfirmation"
-import { Button } from "@/components/ui/button"
 import OrderSuccessAnimation from "@/components/OrderSuccess"
 
 const steps = ["Billing", "Shipping", "Shipping Method", "Payment", "Confirmation"]
 
 export default function CheckoutPage() {
+
   const { state } = useCart()
 
   const [currentStep, setCurrentStep] = useState(0)
@@ -31,9 +30,7 @@ export default function CheckoutPage() {
     setCurrentStep((prev) => prev + 1)
   }
 
-  // const handleStepBack = () => {
-  //   setCurrentStep((prev) => prev - 1)
-  // }
+  
 
   const renderStep = () => {
     switch (currentStep) {
@@ -65,7 +62,9 @@ export default function CheckoutPage() {
           quantity: item.quantity,
           name: item.name,
           price: item.price,
-          image: item.image
+          image: item.image,
+          size: item.size,
+          stock : item.stock
         }))
       },
       total: state.total

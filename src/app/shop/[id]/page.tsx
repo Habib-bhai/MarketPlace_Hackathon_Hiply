@@ -11,7 +11,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <>
-      <ProductDetailsDynamicPageStructure SanityData={filteredData ? filteredData : { _id: "", name: "", price: 0, description: "", image: "", category: '', discountPercent: 0, new: false, colors: [], sizes: [], tags: [] }} />
+      <ProductDetailsDynamicPageStructure SanityData={filteredData ? filteredData : { _id: "", name: "", price: 0, description: "", image: "", category: '', discountPercent: 0, new: false, colors: [], sizes: [], tags: [] , stock: 0, reviews: 0}} />
 
     <RelatedProductsWrapper category={filteredData?.category? filteredData.category : "short"} currentProductId={filteredData?._id? filteredData._id : "" } data={Data} />
     

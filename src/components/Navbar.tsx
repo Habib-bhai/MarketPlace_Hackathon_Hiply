@@ -42,7 +42,9 @@ export default function Navbar() {
 
                 const data = await res.json();
                 setIsAuthenticated(data.isAuthenticated);
-            } catch (error:any) {
+            } 
+            //  eslint-disable-next-line
+            catch (error:any) {
                 setIsAuthenticated(false);
                 console.log(error.message)
             }
@@ -170,6 +172,7 @@ export default function Navbar() {
                                         <Link onClick={() => setOpen(false)} href="/about" className='font-semibold text-3xl mb-8 '>About</Link>
                                         <Link onClick={() => setOpen(false)} href="/shop" className='font-semibold text-3xl mb-8 '>Shop</Link>
                                         <Link onClick={() => setOpen(false)} href="/login" className='font-semibold text-3xl mb-8 '>Login</Link>
+                                        <Link onClick={() => setOpen(false)} href="/profile" className='font-semibold text-3xl mb-8 '>profile</Link>
 
 
 

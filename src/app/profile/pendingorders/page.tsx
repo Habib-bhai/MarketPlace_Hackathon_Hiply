@@ -2,32 +2,54 @@ import { Clock } from "lucide-react"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { client } from "@/sanity/lib/client"
 
-const pendingOrders = [
-  {
-    id: "#PO12345",
-    date: "2024-01-28",
-    items: 3,
-    total: 299.99,
-    status: "Processing",
-  },
-  {
-    id: "#PO12346",
-    date: "2024-01-27",
-    items: 1,
-    total: 199.99,
-    status: "Awaiting Payment",
-  },
-  {
-    id: "#PO12347",
-    date: "2024-01-26",
-    items: 2,
-    total: 99.99,
-    status: "Processing",
-  },
-]
 
-export default function PendingOrdersPage() {
+
+
+
+const query = `
+*[_type == "orders"] {
+  _id,
+  _createdAt,
+  total,
+    products[] {
+    product->,
+    quantity,
+   
+  },
+  status
+
+}
+
+`
+
+interface Orders {
+  _id: string;
+  _createdAt: Date;
+  total: number;
+  products: {
+    product: {
+      name: string;
+      image: string;
+      price: number;
+    };
+    quantity: number;
+  }[];
+  status: string;
+}
+
+
+export default async function PendingOrdersPage() {
+
+
+  const SanityData: Orders[] = await client.fetch(query) 
+  const filtered = SanityData.filter((order) => order.status === "pending")
+
+  console.log(filtered)
+
+
+
   return (
     <div className="space-y-6">
       <div>
@@ -47,12 +69,13 @@ export default function PendingOrdersPage() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {pendingOrders.map((order) => (
-            <TableRow key={order.id}>
-              <TableCell className="font-medium">{order.id}</TableCell>
-              <TableCell>{order.date}</TableCell>
-              <TableCell>{order.items}</TableCell>
-              <TableCell>${order.total.toFixed(2)}</TableCell>
+
+          {filtered.map((order) => (
+            <TableRow key={order._id}>
+              <TableCell className="font-medium">{order._id}</TableCell>
+              <TableCell>{new Date(order._createdAt).toLocaleDateString()}</TableCell>
+              <TableCell>{order?.products?.reduce((acc, product) => acc + (product.quantity || 0), 0)}</TableCell>
+              <TableCell>${order.total}</TableCell>
               <TableCell>
                 <Badge variant="secondary">
                   <Clock className="mr-1 h-4 w-4" />
