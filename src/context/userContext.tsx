@@ -24,6 +24,7 @@ const defaultUser: User = {
 
 const UserContext = createContext<UserContextType | undefined>(undefined)
 
+export const revalidate = 60
 export function UserProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User>(defaultUser)
 
