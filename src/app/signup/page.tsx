@@ -21,7 +21,7 @@ function SignUp() {
 
     })
 
-   const router = useRouter()
+    const router = useRouter()
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault()
@@ -39,14 +39,19 @@ function SignUp() {
             },
             body: JSON.stringify(schemaResponse.data)
         })
-        
-       const result = await response.json()
-       console.log(result)
-       toast(result.message)
 
-       if(response.ok){
-        router.push("/login")
-       }
+        if (!response.ok) {
+            const result = await response.json()
+            console.log(result)
+            toast(result.message)
+        }
+        const result = await response.json()
+        console.log(result)
+        toast(result.message)
+
+        if (response.ok) {
+            router.push("/login")
+        }
     }
 
     return (
@@ -77,7 +82,7 @@ function SignUp() {
                         })}
                         value={inputValues.name}
                     />
-                    
+
                     <input
                         placeholder="Email"
                         type="email"

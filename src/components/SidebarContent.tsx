@@ -99,7 +99,6 @@ export default function SidebarContent() {
             <LogOut className="h-4 w-4"  />
             {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {loading ? "Logging out..." : "Log out"}
-            
           </Button>
         </div>
       </div>

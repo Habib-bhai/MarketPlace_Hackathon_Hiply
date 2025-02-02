@@ -17,11 +17,14 @@ import { Cart } from './Cart'
 import { Wishlist } from './WishList'
 import SearchDialog from './SearchDialogue'
 import { useEffect, useState } from 'react'
+import { Button } from './ui/button'
+import { Loader2, LogOut } from 'lucide-react'
+import { toast } from 'sonner'
 
 
 
 export default function Navbar() {
-
+    const [loading, setloading] = useState(false)
     const [open, setOpen] = useState(false)
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
@@ -52,6 +55,20 @@ export default function Navbar() {
 
         checkAuth();
     }, []);
+
+    const handleLogOut = async () => {
+        setloading(true)
+        const response = await fetch("/api/auth/logout")
+        if (!response.ok) {
+            setloading(false)
+            throw new Error("logout failed")
+            toast("LogOut Failed")
+        }
+        setloading(false)
+        toast("LogOut successful")
+
+
+    }
 
 
     return (
@@ -159,9 +176,9 @@ export default function Navbar() {
                                     <SheetTrigger>
                                         <Image src={"/images/navbar/menu.svg"} alt='hamburger' height={20} width={20} className='block lg:hidden' />
                                     </SheetTrigger>
-                                    <SheetContent className='absolute top-24 w-screen bg h-screen flex flex-col justify-center items-center bg-gray-300 text-[#737373] '>
+                                    <SheetContent className='absolute top-24 w-screen  h-screen flex flex-col justify-center items-center bg-gray-300 text-[#737373] '>
 
-                                        <div className='flex justify-center items-center w-full gap-4 mb-10'>
+                                        <div className='flex justify-center items-center w-full gap-4 mb-5 md:mb-10'>
                                             <SearchDialog />
                                             <Cart />
                                             <Wishlist />
@@ -173,6 +190,13 @@ export default function Navbar() {
                                         <Link onClick={() => setOpen(false)} href="/shop" className='font-semibold text-xl md:text-3xl mb-3 md:mb-8 '>Shop</Link>
                                         <Link onClick={() => setOpen(false)} href="/login" className='font-semibold text-xl md:text-3xl mb-3 md:mb-8 '>Login</Link>
                                         <Link onClick={() => setOpen(false)} href="/profile" className='font-semibold text-xl md:text-3xl mb-3 md:mb-8 '>profile</Link>
+
+                                        <Button onClick={handleLogOut} variant="ghost" className="w-full justify-start gap-2" size="sm">
+                                            <LogOut className="h-4 w-4" />
+                                            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                                            {loading ? "Logging out..." : "Log out"}
+                                        </Button>
+
 
                                     </SheetContent>
                                 </Sheet>
