@@ -167,12 +167,12 @@ export default function Navbar() {
                                             <Wishlist />
                                         </div>
 
-                                        <Link onClick={() => setOpen(false)} href="/" className='font-semibold text-3xl mb-8 '>Home</Link>
-                                        <Link onClick={() => setOpen(false)} href="/contact" className='font-semibold text-3xl mb-8 '>Contact</Link>
-                                        <Link onClick={() => setOpen(false)} href="/about" className='font-semibold text-3xl mb-8 '>About</Link>
-                                        <Link onClick={() => setOpen(false)} href="/shop" className='font-semibold text-3xl mb-8 '>Shop</Link>
-                                        <Link onClick={() => setOpen(false)} href="/login" className='font-semibold text-3xl mb-8 '>Login</Link>
-                                        <Link onClick={() => setOpen(false)} href="/profile" className='font-semibold text-3xl mb-8 '>profile</Link>
+                                        <Link onClick={() => setOpen(false)} href="/" className='font-semibold text-xl  md:text-3xl mb-8 '>Home</Link>
+                                        <Link onClick={() => setOpen(false)} href="/contact" className='font-semibold text-xl md:text-3xl mb-8 '>Contact</Link>
+                                        <Link onClick={() => setOpen(false)} href="/about" className='font-semibold text-xl md:text-3xl mb-8 '>About</Link>
+                                        <Link onClick={() => setOpen(false)} href="/shop" className='font-semibold text-xl md:text-3xl mb-8 '>Shop</Link>
+                                        <Link onClick={() => setOpen(false)} href="/login" className='font-semibold text-xl md:text-3xl mb-8 '>Login</Link>
+                                        <Link onClick={() => setOpen(false)} href="/profile" className='font-semibold text-xl md:text-3xl mb-8 '>profile</Link>
 
                                     </SheetContent>
                                 </Sheet>
@@ -216,9 +216,9 @@ export default function Navbar() {
                                 <SheetContent className='absolute top-24 w-screen bg-white h-screen flex flex-col justify-center items-center text-[#737373]'>
 
 
-                                    <Link href="/" className='font-semibold text-3xl mb-8 '>Home</Link>
-                                    <Link href="/contact" className='font-semibold text-3xl mb-8 '>Contact</Link>
-                                    <Link href="/about" className='font-semibold text-3xl mb-8 '>About</Link>
+                                    <Link href="/" className='font-semibold text-3xl md:text-3xl mb-8 '>Home</Link>
+                                    <Link href="/contact" className='font-semibold text-3xl md:text-3xl mb-8 '>Contact</Link>
+                                    <Link href="/about" className='font-semibold text-3xl md:text-3xl mb-8 '>About</Link>
 
 
 
