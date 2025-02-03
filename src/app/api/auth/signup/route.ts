@@ -42,9 +42,8 @@ export const POST = async (request: NextRequest) => {
     // creating user and storing the user credentials
     const response = await client.create({
         _type: "user",
-        name: data.name,
-        phone: data.phone,
-        email: data.email,
+        name: schemaResponse.data.name,
+        email: schemaResponse.data.email,
         password: hashedPassword,
         role: "user"
     })
