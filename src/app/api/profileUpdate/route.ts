@@ -266,10 +266,151 @@
 
 
 
+// import { NextResponse, type NextRequest } from "next/server";
+// import jwt from "jsonwebtoken";
+// import { createClient } from "next-sanity";
+// import Sharp from 'sharp';
+
+// // Initialize Sanity client
+// const client = createClient({
+//   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+//   dataset: "production",
+//   token: process.env.SANITY_TOKEN,
+//   apiVersion: "2024-02-02",
+//   useCdn: false,
+// });
+// async function optimizeImage(base64String: string) {
+//   // Extract the base64 data
+//   const base64Data = base64String.split(',')[1];
+//   const buffer = Buffer.from(base64Data, 'base64');
+
+//   // Optimize image using Sharp
+//   const optimizedBuffer = await Sharp(buffer)
+//     .resize(800, 800, { // Resize to reasonable dimensions
+//       fit: 'inside',
+//       withoutEnlargement: true
+//     })
+//     .jpeg({ quality: 80 }) // Convert to JPEG with 80% quality
+//     .toBuffer();
+
+//   return optimizedBuffer;
+// }
+
+// async function uploadImageToSanity(imageBuffer: Buffer) {
+//   try {
+//     // Upload to Sanity with a unique filename
+//     const filename = `profile-${Date.now()}.jpg`;
+    
+//     const asset = await client.assets.upload('image', imageBuffer, {
+//       filename,
+//       contentType: 'image/jpeg'
+//     });
+
+//     if (!asset?._id) {
+//       throw new Error('Failed to upload image to Sanity');
+//     }
+
+//     // Return the asset reference in the correct format
+//     return {
+//       _type: 'image',
+//       asset: {
+//         _type: 'reference',
+//         _ref: asset._id
+//       }
+//     };
+//   } catch (error) {
+//     console.error('Error uploading to Sanity:', error);
+//     throw error;
+//   }
+// }
+
+
+// export async function POST(req: NextRequest) {
+//   try {
+//     const token = req.cookies.get("token")?.value;
+//     if (!token) {
+//       return NextResponse.json(
+//         { message: "Authentication required" },
+//         { status: 401 }
+//       );
+//     }
+
+//     if (!process.env.JWT_SECRET) {
+//       throw new Error("JWT_SECRET is not configured");
+//     }
+    
+//     const verifiedTokenValues = jwt.verify(
+//       token,
+//       process.env.JWT_SECRET
+//     ) as jwt.JwtPayload;
+
+//     const data = await req.json();
+//     console.log(data)
+//     // Handle image upload if image is provided
+//     let imageReference = null;
+//     if (data.image) {
+//       try {
+//         // Make sure we're not getting an already processed image reference
+//         if (typeof data.image === 'string' && data.image.startsWith('data:image')) {
+//           const optimizedBuffer = await optimizeImage(data.image);
+//           imageReference = await uploadImageToSanity(optimizedBuffer);
+//         } else {
+//           // If it's already a Sanity image reference, use it as is
+//           imageReference = data.image;
+//         }
+//       } catch (imageError) {
+//         console.error('Image upload failed:', imageError);
+//         return NextResponse.json(
+//           { message: "Failed to upload image" },
+//           { status: 500 }
+//         );
+//       }
+//     }
+
+//     // Prepare the update data
+//     const updateData = {
+//       name: data.data.name,
+//       email: data.data.email,
+//       phone: data.data.phone ? Number(data.data.phone) : undefined,
+//       address: data.data.address,
+//       state: data.data.state,
+//       city: data.data.city,
+//       zipCode: data.data.zipCode ? Number(data.data.zipCode) : undefined,
+//       ...(imageReference && { image: imageReference }) // Only include image if we have a reference
+//     };
+
+//     // Update the document in Sanity
+//     const response = await client
+//       .patch(verifiedTokenValues._id)
+//       .set(updateData)
+//       .commit();
+
+//     if (!response) {
+//       throw new Error("Failed to update profile");
+//     }
+
+//     return NextResponse.json({
+//       message: "Profile updated successfully",
+//       data: response
+//     });
+
+//   } catch (error) {
+//     console.error('Profile update failed:', error);
+//     return NextResponse.json(
+//       { 
+//         message: "Failed to update profile",
+//         error: error instanceof Error ? error.message : 'Unknown error'
+//       },
+//       { status: 500 }
+//     );
+//   }
+// }
+
+
 import { NextResponse, type NextRequest } from "next/server";
-import jwt from "jsonwebtoken";
 import { createClient } from "next-sanity";
-import Sharp from 'sharp';
+import jwt from "jsonwebtoken";
+import Sharp from "sharp";
 
 // Initialize Sanity client
 const client = createClient({
@@ -279,54 +420,43 @@ const client = createClient({
   apiVersion: "2024-02-02",
   useCdn: false,
 });
-async function optimizeImage(base64String: string) {
-  // Extract the base64 data
-  const base64Data = base64String.split(',')[1];
-  const buffer = Buffer.from(base64Data, 'base64');
 
-  // Optimize image using Sharp
-  const optimizedBuffer = await Sharp(buffer)
-    .resize(800, 800, { // Resize to reasonable dimensions
-      fit: 'inside',
-      withoutEnlargement: true
-    })
-    .jpeg({ quality: 80 }) // Convert to JPEG with 80% quality
-    .toBuffer();
-
-  return optimizedBuffer;
-}
-
-async function uploadImageToSanity(imageBuffer: Buffer) {
+async function processImage(file: File) {
   try {
-    // Upload to Sanity with a unique filename
+    // Convert File to Buffer
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    // Process image with Sharp
+    const optimizedBuffer = await Sharp(buffer)
+      .resize(1200, 1200, { fit: "inside", withoutEnlargement: true })
+      .jpeg({ quality: 80, mozjpeg: true })
+      .toBuffer();
+
     const filename = `profile-${Date.now()}.jpg`;
-    
-    const asset = await client.assets.upload('image', imageBuffer, {
+
+    // Upload to Sanity
+    const asset = await client.assets.upload("image", optimizedBuffer, {
       filename,
-      contentType: 'image/jpeg'
+      contentType: "image/jpeg",
     });
 
-    if (!asset?._id) {
-      throw new Error('Failed to upload image to Sanity');
-    }
-
-    // Return the asset reference in the correct format
     return {
-      _type: 'image',
+      _type: "image",
       asset: {
-        _type: 'reference',
-        _ref: asset._id
-      }
+        _type: "reference",
+        _ref: asset._id,
+      },
     };
   } catch (error) {
-    console.error('Error uploading to Sanity:', error);
+    console.error("Image processing failed:", error);
     throw error;
   }
 }
 
-
 export async function POST(req: NextRequest) {
   try {
+    // Authentication check
     const token = req.cookies.get("token")?.value;
     if (!token) {
       return NextResponse.json(
@@ -335,71 +465,58 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    if (!process.env.JWT_SECRET) {
-      throw new Error("JWT_SECRET is not configured");
-    }
-    
+    // JWT verification
     const verifiedTokenValues = jwt.verify(
       token,
-      process.env.JWT_SECRET
+      process.env.JWT_SECRET!
     ) as jwt.JwtPayload;
 
-    const data = await req.json();
-    console.log(data)
-    // Handle image upload if image is provided
+    // Parse form data
+    const formData = await req.formData();
+    
+    // Handle image upload
     let imageReference = null;
-    if (data.image) {
+    const imageFile = formData.get("image") as File | null;
+    if (imageFile) {
       try {
-        // Make sure we're not getting an already processed image reference
-        if (typeof data.image === 'string' && data.image.startsWith('data:image')) {
-          const optimizedBuffer = await optimizeImage(data.image);
-          imageReference = await uploadImageToSanity(optimizedBuffer);
-        } else {
-          // If it's already a Sanity image reference, use it as is
-          imageReference = data.image;
-        }
-      } catch (imageError) {
-        console.error('Image upload failed:', imageError);
+        imageReference = await processImage(imageFile);
+      } catch (error) {
+        console.error("Image upload failed:", error);
         return NextResponse.json(
-          { message: "Failed to upload image" },
+          { message: "Failed to process image" },
           { status: 500 }
         );
       }
     }
 
-    // Prepare the update data
+    // Prepare update data
     const updateData = {
-      name: data.data.name,
-      email: data.data.email,
-      phone: data.data.phone ? Number(data.data.phone) : undefined,
-      address: data.data.address,
-      state: data.data.state,
-      city: data.data.city,
-      zipCode: data.data.zipCode ? Number(data.data.zipCode) : undefined,
-      ...(imageReference && { image: imageReference }) // Only include image if we have a reference
+      name: formData.get("name") as string,
+      email: formData.get("email") as string,
+      phone: formData.get("phone") ? Number(formData.get("phone")) : undefined,
+      address: formData.get("address") as string | undefined,
+      state: formData.get("state") as string | undefined,
+      city: formData.get("city") as string | undefined,
+      zipCode: formData.get("zipCode") ? Number(formData.get("zipCode")) : undefined,
+      ...(imageReference && { image: imageReference }),
     };
 
-    // Update the document in Sanity
+    // Update Sanity document
     const response = await client
       .patch(verifiedTokenValues._id)
       .set(updateData)
       .commit();
 
-    if (!response) {
-      throw new Error("Failed to update profile");
-    }
-
     return NextResponse.json({
       message: "Profile updated successfully",
-      data: response
+      data: response,
     });
-
   } catch (error) {
-    console.error('Profile update failed:', error);
+    console.error("Profile update failed:", error);
     return NextResponse.json(
-      { 
+      {
         message: "Failed to update profile",
-        error: error instanceof Error ? error.message : 'Unknown error'
+        error: error instanceof Error ? error.message : "Unknown error",
       },
       { status: 500 }
     );
