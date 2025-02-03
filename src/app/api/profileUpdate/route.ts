@@ -269,6 +269,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import jwt from "jsonwebtoken";
 import { createClient } from "next-sanity";
+import Sharp from 'sharp';
 
 // Initialize Sanity client
 const client = createClient({
@@ -278,38 +279,51 @@ const client = createClient({
   apiVersion: "2024-02-02",
   useCdn: false,
 });
+async function optimizeImage(base64String: string) {
+  // Extract the base64 data
+  const base64Data = base64String.split(',')[1];
+  const buffer = Buffer.from(base64Data, 'base64');
 
-async function uploadImageToSanity(base64Response: string) {
+  // Optimize image using Sharp
+  const optimizedBuffer = await Sharp(buffer)
+    .resize(800, 800, { // Resize to reasonable dimensions
+      fit: 'inside',
+      withoutEnlargement: true
+    })
+    .jpeg({ quality: 80 }) // Convert to JPEG with 80% quality
+    .toBuffer();
+
+  return optimizedBuffer;
+}
+
+async function uploadImageToSanity(imageBuffer: Buffer) {
   try {
-    const [mimeTypeData, base64Data] = base64Response.split(",");
-    const mimeType = mimeTypeData.match(/data:(.*?);/)?.[1];
-
-    if (!mimeType || !base64Data) {
-      throw new Error("Invalid base64 image format");
-    }
-
-    // Convert base64 to Buffer
-    const buffer = Buffer.from(base64Data, "base64");
-
-    // Upload image to Sanity
-    const asset = await client.assets.upload('image', buffer, {
-      filename: `image-${Date.now()}.${mimeType.split('/')[1]}`,
-      contentType: mimeType,
+    // Upload to Sanity with a unique filename
+    const filename = `profile-${Date.now()}.jpg`;
+    
+    const asset = await client.assets.upload('image', imageBuffer, {
+      filename,
+      contentType: 'image/jpeg'
     });
 
-    // Return the correct Sanity image reference format
+    if (!asset?._id) {
+      throw new Error('Failed to upload image to Sanity');
+    }
+
+    // Return the asset reference in the correct format
     return {
-      _type: "image",
+      _type: 'image',
       asset: {
-        _type: "reference",
-        _ref: asset._id // This will be in the correct format like "image-Tb9Ew8CXIwaY6R1kjMvI0uRR-2000x3000-jpg"
+        _type: 'reference',
+        _ref: asset._id
       }
     };
   } catch (error) {
-    console.error("Error uploading image to Sanity:", error);
+    console.error('Error uploading to Sanity:', error);
     throw error;
   }
 }
+
 
 export async function POST(req: NextRequest) {
   try {
@@ -331,14 +345,15 @@ export async function POST(req: NextRequest) {
     ) as jwt.JwtPayload;
 
     const data = await req.json();
-
+    console.log(data)
     // Handle image upload if image is provided
     let imageReference = null;
     if (data.image) {
       try {
         // Make sure we're not getting an already processed image reference
         if (typeof data.image === 'string' && data.image.startsWith('data:image')) {
-          imageReference = await uploadImageToSanity(data.image);
+          const optimizedBuffer = await optimizeImage(data.image);
+          imageReference = await uploadImageToSanity(optimizedBuffer);
         } else {
           // If it's already a Sanity image reference, use it as is
           imageReference = data.image;
