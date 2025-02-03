@@ -294,6 +294,7 @@ export default function UpdateProfilePage() {
 
       if (!response.ok) {
         const result = await response.json();
+        console.log(result);
         toast(result.message);
         throw new Error("Failed to update profile");
       }
