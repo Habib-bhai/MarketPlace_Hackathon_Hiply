@@ -5,7 +5,7 @@ import { useCart } from "@/context/CartContext"
 import CheckoutSteps from "@/components/CheckoutSteps"
 import BillingForm from "@/components/BillingForm"
 import ShippingMethod from "@/components/ShippingMethod"
-import PaymentMethod from "@/components/PaymentMethod"
+
 import OrderSummary from "@/components/OrderSummary"
 import OrderConfirmation from "@/components/OrderConfirmation"
 import OrderSuccessAnimation from "@/components/OrderSuccess"

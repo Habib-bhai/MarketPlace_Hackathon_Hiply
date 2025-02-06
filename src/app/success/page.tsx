@@ -3,7 +3,7 @@ import React from 'react'
 import { motion } from "framer-motion"
 import { Button } from '@/components/ui/button' 
 import { useRouter } from "next/navigation"
-function page() {
+function SuccessPage() {
     const router = useRouter()
 
   return (
@@ -99,4 +99,4 @@ function page() {
   )
 }
 
-export default page
+export default SuccessPage
