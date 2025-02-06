@@ -79,14 +79,7 @@ export default function CheckoutPage() {
         size: item.size,
         stock: item.stock
       }))
-      // [
-      //   {
-      //     "name": "Test Product",
-      //     "image": "https://placehold.co/600x400.png",
-      //     "price": 19.99,
-      //     "quantity": 1
-      //   }
-      // ]
+
     };
 
     try {
@@ -106,9 +99,9 @@ export default function CheckoutPage() {
         return;
       }
 
-      const result = await response.json();
-      console.log('Order processed successfully:', result);
-      router.push(result.payment)  
+      const { orderId, payment } = await response.json();
+      localStorage.setItem('pendingOrderId', orderId);
+      router.push(payment)
       // Handle success
     } catch (error) {
       console.error('Error processing order:', error);

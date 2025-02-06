@@ -34,6 +34,7 @@ interface Orders {
 }
 
 
+export const validate = 60
 
 export default async function OrdersPage() {
 

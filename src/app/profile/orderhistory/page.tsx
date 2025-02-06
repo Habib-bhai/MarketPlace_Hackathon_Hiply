@@ -40,6 +40,8 @@ interface Orders {
   status: string;
 }
 
+export const validate = 60
+
 
 export default function OrderHistoryPage() {
 
