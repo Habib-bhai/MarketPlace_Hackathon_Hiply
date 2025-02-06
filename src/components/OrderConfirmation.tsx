@@ -10,9 +10,9 @@ interface OrderConfirmationProps {
     paymentMethod: string
   }
   cartItems: CartItem[],
-  orderHandler: ()=> void,
+  orderHandler: () => void,
   //  eslint-disable-next-line
-  onComplete: (stepData: any)=> void
+  onComplete: (stepData: any) => void
 }
 
 export default function OrderConfirmation({ formData, cartItems, orderHandler, onComplete }: OrderConfirmationProps) {
@@ -57,10 +57,10 @@ export default function OrderConfirmation({ formData, cartItems, orderHandler, o
                 {formData.shippingMethod.title} - ${formData.shippingMethod.price.toFixed(2)}
               </dd>
             </div>
-            <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            {/* <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-500">Payment Method</dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{formData.paymentMethod}</dd>
-            </div>
+            </div> */}
             <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-500">Order Total</dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
@@ -72,13 +72,13 @@ export default function OrderConfirmation({ formData, cartItems, orderHandler, o
 
       </div>
 
-      <Button 
-      onClick={()=> {
-        onComplete({})
-        orderHandler()
-      }}
-      variant={"blueVariant"} 
-      className="mt-5 w-40"
+      <Button
+        onClick={() => {
+          onComplete({})
+          orderHandler()
+        }}
+        variant={"blueVariant"}
+        className="mt-5 w-40"
       >Place Order
       </Button>
     </>

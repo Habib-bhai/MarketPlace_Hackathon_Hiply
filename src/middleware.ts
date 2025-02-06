@@ -12,16 +12,6 @@ export const middleware = (req: NextRequest) => {
         NextResponse.next()
     }
 
-    // if (!token) {
-    //     if(path.startsWith("^\/checkout(\/.*)?$") ) return NextResponse.redirect( new URL("/login", req.url),);
-
-    //     NextResponse.next()
-    // }
-    // if (!token) {
-    //     if( path == "^\/profile(\/.*)?$" ) return NextResponse.redirect( new URL("/login", req.url),);
-
-    //     NextResponse.next()
-    // }
 
     // Create regex patterns
     const checkoutRegex = /^\/checkout(\/.*)?$/;

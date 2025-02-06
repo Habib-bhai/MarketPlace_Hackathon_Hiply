@@ -41,7 +41,7 @@ const orderData = await client.fetch(query)
 
   // const orders1: Orders[] = orderData.map((order: any) => (order.products.map((product: any) => product.quantity.reduce((a: number, b: number) => a + b, 0))))
 
-console.log(orderData, orderData[0].products)
+// console.log(orderData, orderData[0].products)
 
   return (
     <div className="space-y-6">

@@ -1,105 +1,12 @@
-// import jwt from "jsonwebtoken"
-// import { createClient } from "next-sanity";
-// import { NextResponse, type NextRequest } from "next/server";
-
-
-// const client = createClient({
-//     projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-//     dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-//     token: process.env.SANITY_TOKEN,
-//     useCdn: false
-
-// })
-
-// interface Product {
-//     id: string; // Sanity document ID
-//     name: string;
-//     price: number;
-//     image: string;
-//     quantity: number;
-// }
-// interface OrderProduct {
-//     _type: "object";
-//     product: {
-//         _type: "reference";
-//         _ref: string; // Reference to the product document ID in Sanity
-//     };
-//     quantity: number
-// }
-
-// interface Order {
-//     customer: {
-//         _type: "reference";
-//         _ref: string; // Reference to the customer ID
-//     };
-//     products: OrderProduct[];
-//     status: "pending" | "shipped" | "delivered" | "returned"; // Defined statuses
-// }
-
-
-
-// export const POST = async (req: NextRequest) => {
-//     const data = await req.json()
-//     const token = req.cookies.get("token")?.value || ""
-
-//     const verifiedTokenData = jwt.verify(token, String(process.env.JWT_SECRET))
-
-//     const query = `
-//     *[_type == "user" && _id== "6Urq9lch3ZrmoyCtBzxbbb"]
-//     `
-//     const user = await client.fetch(query)
-
-//     // console.log(data, verifiedTokenData)
-//     const orderSchemaResponse = await client.create({
-//         _type: "orders",
-//         customer: {
-//             _type: "reference",
-//             _ref: user[0]?._id, // Ensure `user[0]._id` exists and is valid
-//         },
-//         products: data?.items
-//             ?.filter((product: Product) => product?.id && product?.quantity) // Filter out invalid products
-//             .map((product: Product): OrderProduct => ({
-//                 _type: "object",
-//                 product: {
-//                     _type: "reference",
-//                     _ref: product.id, // Ensure this is a valid Sanity product ID
-//                 },
-//                 quantity: product.quantity, // Ensure this is a number
-//             })),
-//         status: "pending",
-//     });
-
-
-
-//     console.log(orderSchemaResponse)
-
-
-//     // const updatedUser = await client.patch(user[0]._id).set({
-//     //     address: data.formData.billing.address,
-//     //     state: data.formData.billing.state,
-//     //     city: data.formData.billing.city,
-//     //     zipCode: data.formData.billing.postalCode,
-//     //     // orders : data.formData.items.map()
-
-//     // }).commit()
-
-//     // console.log(updatedUser)
-
-//     return NextResponse.json({ data })
-// }
-
-
-
-
-
-
-
-
 import jwt from "jsonwebtoken"
 import { createClient } from "next-sanity";
 import { NextResponse, type NextRequest } from "next/server";
 
+import Stripe from "stripe";
 
+const stripe = new Stripe(process.env.STRIPE_SECRET!, {
+    apiVersion: "2025-01-27.acacia",
+});
 
 
 
@@ -130,8 +37,10 @@ const client = createClient({
 
 export const POST = async (req: NextRequest) => {
     try {
-        const data = await req.json();
-        console.log('Received data:', JSON.stringify(data, null, 2));
+      
+        const { products,  formData, total } = await req.json();
+
+      
 
         const token = req.cookies.get("token")?.value;
         if (!token) {
@@ -142,7 +51,7 @@ export const POST = async (req: NextRequest) => {
             const verifiedToken = jwt.verify(token, String(process.env.JWT_SECRET)) as jwt.JwtPayload;
 
             // First, verify that all products exist in Sanity
-            const productIds = data.formData.items.map((item: product) => item.id);
+            const productIds = formData.items.map((item: product) => item.id);
             const productsQuery = `*[_type == "products" && _id in $ids]._id`;
             const existingProducts = await client.fetch(productsQuery, { ids: productIds });
 
@@ -173,7 +82,7 @@ export const POST = async (req: NextRequest) => {
                     _type: "reference",
                     _ref: user._id,
                 },
-                products: data.formData.items
+                products: formData.items
                     .filter((product: product) => product.id && product.quantity > 0)
                     .map((product: product) => ({
                         _key: generateKey(),
@@ -186,13 +95,13 @@ export const POST = async (req: NextRequest) => {
                         size: product.size
                     })),
                 status: "pending",
-                address: data?.formData?.billing?.address,
-                state: data?.formData?.billing?.state,
-                city: data?.formData?.billing?.city,
-                postalCode: data?.formData?.billing?.postalCode,
-                country: data?.formData?.billing?.country,
-                total: data?.total
-               
+                address: formData?.billing?.address,
+                state: formData?.billing?.state,
+                city: formData?.billing?.city,
+                postalCode: formData?.billing?.postalCode,
+                country: formData?.billing?.country,
+                total: total
+
             };
 
             // Create order
@@ -200,10 +109,10 @@ export const POST = async (req: NextRequest) => {
 
             // Update user with billing information
             const updateUserData = {
-                address: data.formData.billing.address,
-                state: data.formData.billing.state,
-                city: data.formData.billing.city,
-                zipCode: Number(data.formData.billing.postalCode),
+                address: formData.billing.address,
+                state: formData.billing.state,
+                city: formData.billing.city,
+                zipCode: Number(formData.billing.postalCode),
                 orders: [{
                     _key: generateKey(),
                     _type: "reference",
@@ -213,10 +122,65 @@ export const POST = async (req: NextRequest) => {
 
             await client.patch(user._id).set(updateUserData).commit();
 
+
+
+            // Validate products structure
+            if (!Array.isArray(products)) {
+                return NextResponse.json(
+                    { error: "Invalid products format" },
+                    { status: 400 }
+                );
+            }
+
+            // Validate individual products
+            for (const product of products) {
+                if (
+                    !product?.name ||
+                    !product?.image ||
+                    typeof product?.price !== "number" ||
+                    typeof product?.quantity !== "number"
+                ) {
+                    return NextResponse.json(
+                        { error: "Invalid product structure" },
+                        { status: 400 }
+                    );
+                }
+
+                if (!product.image.startsWith("https://")) {
+                    return NextResponse.json(
+                        { error: "Image URLs must use HTTPS" },
+                        { status: 400 }
+                    );
+                }
+            }
+            const session = await stripe.checkout.sessions.create({
+                payment_method_types: ["card"],
+                mode: "payment",
+                line_items: products.map((product) => ({
+                    price_data: {
+                        currency: "usd",
+                        product_data: {
+                            name: product.name,
+                            images: [product.image],
+                        },
+                        unit_amount: Math.round(product.price * 100),
+                    },
+                    quantity: product.quantity,
+                })),
+                success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/success`,
+                cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/cancel`,
+            });
+
+
+
+
+
             return NextResponse.json({
                 success: true,
                 orderId: order._id,
-                message: "Order processed successfully"
+                message: "Order processed successfully",
+                payment: session.url,
+                paymentSession: session 
             });
 
         } catch (jwtError) {
