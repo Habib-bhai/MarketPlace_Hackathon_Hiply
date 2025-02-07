@@ -1,10 +1,12 @@
 "use client"
-import { useEffect, useState } from "react"
+import {useState } from "react"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { client } from "@/sanity/lib/client"
+import useSWR from "swr"
+import Loader from "@/components/Loader"
 
 
 
@@ -40,33 +42,26 @@ interface Orders {
   status: string;
 }
 
-export const validate = 60
+
 
 
 export default function OrderHistoryPage() {
 
   const [filter, setFilter] = useState("all")
-  const [data, setdata] = useState<Orders[]>([])
+  const [Data, setdata] = useState<Orders[]>([])
 
+  const fetchOrders = async () => {
+    const SanityData: Orders[] = await client.fetch(query)
+    const filteredData = SanityData.filter((order) => order.status === "delivered" || order.status === "returned")
 
-  useEffect(() => {
+    setdata(filteredData)
 
-    const fetchOrders = async () => {
+  }
 
-      const SanityData: Orders[] = await client.fetch(query) 
-      const filteredData = SanityData.filter((order) => order.status === "delivered" || order.status === "returned")
+  const {isLoading }= useSWR(query, fetchOrders, { refreshInterval: 60000 })
 
-      setdata(filteredData)
+  if(isLoading) return <Loader/>;
 
-    }
-
-    fetchOrders()
-
-  }, [])
-
-
-
-  
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -98,10 +93,10 @@ export default function OrderHistoryPage() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.map((order) => (
+          {Data.map((order) => (
             <TableRow key={order._id}>
               <TableCell className="font-medium">{order._id}</TableCell>
-              <TableCell>{new Date(order._createdAt).toLocaleDateString()  }</TableCell>
+              <TableCell>{new Date(order._createdAt).toLocaleDateString()}</TableCell>
               <TableCell>{order?.products?.reduce((acc, product) => acc + (product.quantity || 0), 0)}</TableCell>
               <TableCell>${order.total}</TableCell>
               <TableCell>

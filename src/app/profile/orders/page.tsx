@@ -33,7 +33,6 @@ interface Orders {
   status: string;
 }
 
-
 export const validate = 60
 
 export default async function OrdersPage() {
