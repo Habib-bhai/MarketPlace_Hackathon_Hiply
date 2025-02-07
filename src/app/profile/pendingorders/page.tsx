@@ -1,14 +1,14 @@
+"use client"
 import { Clock } from "lucide-react"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { client } from "@/sanity/lib/client"
+import { useState } from "react"
+import useSWR from "swr"
 
 
-
-
-
-const query = `
+const Query = `
 *[_type == "orders"] {
   _id,
   _createdAt,
@@ -40,16 +40,22 @@ interface Orders {
 }
 
 
-export const validate = 60
+
+export default  function PendingOrdersPage() {
 
 
-export default async function PendingOrdersPage() {
+const [filtered, setFiltered] = useState<Orders[]>([])
 
-
+const fetchOrders = async (query: string) => {
   const SanityData: Orders[] = await client.fetch(query) 
   const filtered = SanityData.filter((order) => order.status === "pending")
 
-  console.log(filtered)
+  setFiltered(filtered)
+  
+}
+
+useSWR(Query, fetchOrders, {refreshInterval: 60000})
+  // console.log(filtered)
 
 
 

@@ -11,7 +11,7 @@ import Loader from "@/components/Loader"
 
 
 
-const query = `
+const Query = `
 *[_type == "orders"] {
   _id,
   _createdAt,
@@ -50,7 +50,7 @@ export default function OrderHistoryPage() {
   const [filter, setFilter] = useState("all")
   const [Data, setdata] = useState<Orders[]>([])
 
-  const fetchOrders = async () => {
+  const fetchOrders = async (query: string) => {
     const SanityData: Orders[] = await client.fetch(query)
     const filteredData = SanityData.filter((order) => order.status === "delivered" || order.status === "returned")
 
@@ -58,7 +58,7 @@ export default function OrderHistoryPage() {
 
   }
 
-  const {isLoading }= useSWR(query, fetchOrders, { refreshInterval: 60000 })
+  const {isLoading }= useSWR(Query, fetchOrders, { refreshInterval: 60000 })
 
   if(isLoading) return <Loader/>;
 

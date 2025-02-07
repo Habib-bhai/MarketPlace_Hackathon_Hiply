@@ -1,8 +1,11 @@
+"use client"
+import Loader from "@/components/Loader"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { client } from "@/sanity/lib/client"
+import { useState } from "react"
+import useSWR from "swr"
 
-
-const query = `
+const Query = `
 *[_type == "orders"] {
   _id,
   _createdAt,
@@ -33,15 +36,19 @@ interface Orders {
   status: string;
 }
 
-export const validate = 60
 
-export default async function OrdersPage() {
 
-const orderData = await client.fetch(query) 
+export default function OrdersPage() {
+  const [Data, setData] = useState<Orders[]>([])
+  const orderData = async (query: string) => {
 
-  // const orders1: Orders[] = orderData.map((order: any) => (order.products.map((product: any) => product.quantity.reduce((a: number, b: number) => a + b, 0))))
+    const response = await client.fetch(query)
+    setData(response)
+  }
 
-// console.log(orderData, orderData[0].products)
+  const { isLoading } = useSWR(Query, orderData, { refreshInterval: 60000 })
+
+  if (isLoading) return <Loader />;
 
   return (
     <div className="space-y-6">
@@ -61,7 +68,7 @@ const orderData = await client.fetch(query)
           </TableRow>
         </TableHeader>
         <TableBody>
-          {orderData.map((order:Orders) => (
+          {Data.map((order: Orders) => (
             <TableRow key={order._id}>
               <TableCell className="font-medium">{order._id}</TableCell>
               <TableCell>{new Date(order._createdAt).toLocaleDateString()}</TableCell>
