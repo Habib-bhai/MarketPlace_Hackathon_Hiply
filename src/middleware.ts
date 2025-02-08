@@ -21,12 +21,16 @@ export const middleware = (req: NextRequest) => {
         if (checkoutRegex.test(path)) {
             return NextResponse.redirect(new URL("/login", req.url));
         }
-    }
 
+        NextResponse.next()
+    }
+    
     if (!token) {
         if (profileRegex.test(path)) {
             return NextResponse.redirect(new URL("/login", req.url));
         }
+        NextResponse.next()   
+
     }
 
     return NextResponse.next()
