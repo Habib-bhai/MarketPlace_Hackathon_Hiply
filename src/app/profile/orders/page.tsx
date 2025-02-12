@@ -41,7 +41,6 @@ interface Orders {
 export default function OrdersPage() {
   const [Data, setData] = useState<Orders[]>([])
   const orderData = async (query: string) => {
-
     const response = await client.fetch(query)
     setData(response)
   }

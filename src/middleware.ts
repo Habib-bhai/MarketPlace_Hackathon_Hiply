@@ -9,7 +9,7 @@ export const middleware = (req: NextRequest) => {
     if (token) {
         if (path == "/login" || path == "/signup") return NextResponse.redirect(new URL("/", req.url),)
 
-        NextResponse.next()
+
     }
 
 
@@ -22,14 +22,14 @@ export const middleware = (req: NextRequest) => {
             return NextResponse.redirect(new URL("/login", req.url));
         }
 
-        NextResponse.next()
+
     }
-    
+
     if (!token) {
         if (profileRegex.test(path)) {
             return NextResponse.redirect(new URL("/login", req.url));
         }
-        NextResponse.next()   
+
 
     }
 
