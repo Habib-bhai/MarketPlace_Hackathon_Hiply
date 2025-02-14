@@ -1,5 +1,5 @@
 "use client"
-import {useState } from "react"
+import {useEffect, useState } from "react"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -48,19 +48,43 @@ interface Orders {
 export default function OrderHistoryPage() {
 
   const [filter, setFilter] = useState("all")
-  const [Data, setdata] = useState<Orders[]>([])
+  const [Data, setData] = useState<Orders[]>([])
+  const [Loading, setLoading] = useState(false)
 
-  const fetchOrders = async (query: string) => {
-    const SanityData: Orders[] = await client.fetch(query)
-    const filteredData = SanityData.filter((order) => order.status === "delivered" || order.status === "returned")
 
-    setdata(filteredData)
+  useEffect(()=> {
+    const orderData = async () => {
+      setLoading(true)
+      const response = await fetch("/api/getOrders", {
+        method: "POST",
+        credentials: "include"
+      })
+  
+      if(!response.ok) {
+        throw new Error("Failed to fetch orders")
+      }
+  
+      const data: Orders[] = await response.json()
+      const filtered =  data.filter((order) => order.status === "delivered" || order.status === "returned")
+      setData(filtered)
+      setLoading(false)
+    }
 
-  }
+    orderData()
+  }, [])
 
-  const {isLoading }= useSWR(Query, fetchOrders, { refreshInterval: 60000 })
 
-  if(isLoading) return <Loader/>;
+  // const fetchOrders = async (query: string) => {
+  //   const SanityData: Orders[] = await client.fetch(query)
+  //   const filteredData = SanityData.filter((order) => order.status === "delivered" || order.status === "returned")
+
+  //   setdata(filteredData)
+
+  // }
+
+  // const {isLoading }= useSWR(Query, fetchOrders, { refreshInterval: 60000 })
+
+  if(Loading) return <Loader/>;
 
   return (
     <div className="space-y-6">

@@ -4,8 +4,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { client } from "@/sanity/lib/client"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import useSWR from "swr"
+import Loader from "@/components/Loader"
 
 
 const Query = `
@@ -43,20 +44,32 @@ interface Orders {
 
 export default  function PendingOrdersPage() {
 
+ const [Data, setData] = useState<Orders[]>([])
 
-const [filtered, setFiltered] = useState<Orders[]>([])
+const [Loading, setLoading] = useState(false)
 
-const fetchOrders = async (query: string) => {
-  const SanityData: Orders[] = await client.fetch(query) 
-  const filtered = SanityData.filter((order) => order.status === "pending")
-
-  setFiltered(filtered)
+  useEffect(()=> {
+    const orderData = async () => {
+      setLoading(true)
+      const response = await fetch("/api/getOrders", {
+        method: "POST",
+        credentials: "include"
+      })
   
-}
+      if(!response.ok) {
+        throw new Error("Failed to fetch orders")
+      }
+  
+      const data: Orders[] = await response.json()
+      const filtered =  data.filter((order) => order.status === "pending")
+      setData(filtered)
+      setLoading(false)
+    }
 
-useSWR(Query, fetchOrders, {refreshInterval: 60000})
-  // console.log(filtered)
+    orderData()
+  }, [])
 
+  if (Loading) return <Loader />;
 
 
   return (
@@ -79,7 +92,7 @@ useSWR(Query, fetchOrders, {refreshInterval: 60000})
         </TableHeader>
         <TableBody>
 
-          {filtered.map((order) => (
+          {Data.map((order) => (
             <TableRow key={order._id}>
               <TableCell className="font-medium">{order._id}</TableCell>
               <TableCell>{new Date(order._createdAt).toLocaleDateString()}</TableCell>

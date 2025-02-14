@@ -1,25 +1,8 @@
 "use client"
 import Loader from "@/components/Loader"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { client } from "@/sanity/lib/client"
-import { useState } from "react"
-import useSWR from "swr"
+import { useEffect, useState } from "react"
 
-const Query = `
-*[_type == "orders"] {
-  _id,
-  _createdAt,
-  total,
-    products[] {
-    product->,
-    quantity,
-   
-  },
-  status
-
-}
-
-`
 
 interface Orders {
   _id: string;
@@ -40,14 +23,32 @@ interface Orders {
 
 export default function OrdersPage() {
   const [Data, setData] = useState<Orders[]>([])
-  const orderData = async (query: string) => {
-    const response = await client.fetch(query)
-    setData(response)
-  }
+  const [Loading, setLoading] = useState(false)
 
-  const { isLoading } = useSWR(Query, orderData, { refreshInterval: 60000 })
+  useEffect(()=> {
+    const orderData = async () => {
+      setLoading(true)
+      const response = await fetch("/api/getOrders", {
+        method: "POST",
+        credentials: "include"
+      })
+  
+      if(!response.ok) {
+        throw new Error("Failed to fetch orders")
+      }
+  
+      const data = await response.json()
+  
+      setData(data)
+      setLoading(false)
+    }
 
-  if (isLoading) return <Loader />;
+    orderData()
+  }, [])
+
+  
+
+  if (Loading) return <Loader />;
 
   return (
     <div className="space-y-6">
