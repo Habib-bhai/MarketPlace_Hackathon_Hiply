@@ -3,27 +3,25 @@ import { Clock } from "lucide-react"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { client } from "@/sanity/lib/client"
 import { useEffect, useState } from "react"
-import useSWR from "swr"
 import Loader from "@/components/Loader"
 
 
-const Query = `
-*[_type == "orders"] {
-  _id,
-  _createdAt,
-  total,
-    products[] {
-    product->,
-    quantity,
+// const Query = `
+// *[_type == "orders"] {
+//   _id,
+//   _createdAt,
+//   total,
+//     products[] {
+//     product->,
+//     quantity,
    
-  },
-  status
+//   },
+//   status
 
-}
+// }
 
-`
+// `
 
 interface Orders {
   _id: string;
