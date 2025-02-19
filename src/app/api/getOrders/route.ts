@@ -4,7 +4,7 @@ import { client } from "@/sanity/lib/client";
 export const POST = async (req: NextRequest) => {
     const token  = req.cookies.get("token")?.value || ""
     if(!token) {
-        return {message: "Not Authenticated", status: 401}
+        return NextResponse.json({message: "Not Authenticated"}, {status: 401})
     }
     const verifiedDetails = jwt.verify(token, String(process.env.JWT_SECRET)) as jwt.JwtPayload
 
