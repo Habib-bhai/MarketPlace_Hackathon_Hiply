@@ -14,7 +14,6 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion"
 import { Cart } from './Cart'
-import { Wishlist } from './WishList'
 import SearchDialog from './SearchDialogue'
 import { useEffect, useState } from 'react'
 import { Button } from './ui/button'
@@ -143,7 +142,7 @@ export default function Navbar() {
                                     <div className='hidden md:flex justify-between items-center gap-8'>
 
                                         {/* user profile button */}
-                                        <div className='hidden font-montserrat text-sm lg:flex justify-center items-center text-black'>
+                                        <div  className='hidden font-montserrat text-sm lg:flex justify-center items-center text-black'>
 
                                             {
                                                 isAuthenticated ?
@@ -162,9 +161,9 @@ export default function Navbar() {
 
                                         </div>
 
-                                        <SearchDialog />
-                                        <Cart />
-                                        <Wishlist />
+                                        <SearchDialog  />
+                                        <Cart setopen={setOpen}/>
+                                        
 
                                     </div>
 
@@ -179,9 +178,8 @@ export default function Navbar() {
                                     <SheetContent className='absolute top-24 w-screen  h-screen flex flex-col justify-center items-center bg-gray-300 text-[#737373] '>
 
                                         <div className='flex justify-center items-center w-full gap-4 mb-5 md:mb-10'>
-                                            <SearchDialog />
-                                            <Cart />
-                                            <Wishlist />
+                                            <SearchDialog   />
+                                            <Cart setopen={setOpen}/>
                                         </div>
 
                                         <Link onClick={() => setOpen(false)} href="/" className='font-semibold text-xl  md:text-3xl mb-3 md:mb-8 '>Home</Link>

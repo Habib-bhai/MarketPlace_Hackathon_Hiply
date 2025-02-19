@@ -35,7 +35,6 @@ export const middleware = (req: NextRequest) => {
 
     return NextResponse.next()
 
-
 }
 
 
