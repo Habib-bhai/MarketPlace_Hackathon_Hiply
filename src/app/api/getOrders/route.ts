@@ -9,7 +9,7 @@ export const POST = async (req: NextRequest) => {
     const verifiedDetails = jwt.verify(token, String(process.env.JWT_SECRET)) as jwt.JwtPayload
 
     const query = `
-        *[_type == "orders" && customer._ref == "ZiSN3Yx6kdpcG7J5eiJ72m"]{
+        *[_type == "orders" && customer._ref == $userId]{
             _id,
             _createdAt,
             customer,
